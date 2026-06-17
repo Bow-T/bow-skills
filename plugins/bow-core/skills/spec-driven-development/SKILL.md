@@ -1,6 +1,6 @@
 ---
 name: spec-driven-development
-description: Creates specs before coding, tied to a DUOCT Jira ticket (DUOCT-XXX). Use when starting a new feature or significant change and no spec exists. Use when requirements are unclear, ambiguous, or only a vague idea — capture Acceptance Criteria with code-path Evidence (per docs/features/ convention). Feeds [[planning-and-task-breakdown]].
+description: Creates specs before coding, tied to a tracker ticket. Use when starting a new feature or significant change and no spec exists. Use when requirements are unclear, ambiguous, or only a vague idea — capture Acceptance Criteria with code-path Evidence rather than hand-checked progress. Feeds [[planning-and-task-breakdown]].
 ---
 
 # Spec-Driven Development

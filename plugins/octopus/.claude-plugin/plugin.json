@@ -1,0 +1,12 @@
+{
+  "name": "octopus",
+  "version": "1.0.0",
+  "description": "Project-specific skills for the Octopus app / monorepo: commit pipeline, Flutter MVVM scaffolding, and Supabase security review.",
+  "author": {
+    "name": "Bow (Tuan Nguyen)"
+  },
+  "homepage": "https://github.com/Bow-T/bow-skills",
+  "repository": "https://github.com/Bow-T/bow-skills",
+  "license": "MIT",
+  "skills": "./skills"
+}

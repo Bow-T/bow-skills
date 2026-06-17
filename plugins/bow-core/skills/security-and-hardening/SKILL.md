@@ -1,6 +1,6 @@
 ---
 name: security-and-hardening
-description: Hardens APP-LAYER code against vulnerabilities (Flutter mobile, Next.js admin, Stripe/3rd-party integrations) — input validation, auth/session, secret handling, untrusted data. Use when building features that accept untrusted input or manage sessions. NOT for Supabase migrations/RLS/views/triggers/edge-function SQL — use supabase-security-review for those.
+description: Hardens APP-LAYER code against vulnerabilities (mobile, web, third-party/payment integrations) — input validation, auth/session, secret handling, untrusted data. Use when building features that accept untrusted input or manage sessions. For database-layer concerns (RLS, views, triggers, SQL), use a dedicated DB security review skill instead.
 ---
 
 # Security and Hardening

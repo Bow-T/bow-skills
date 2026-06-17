@@ -1,22 +1,27 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
-  "name": "duoct-agent-skills",
-  "description": "DUOCT engineering skills for Claude Code — company conventions (Octopus commit pipeline, Supabase security review, Flutter MVVM) plus the full spec→ship development lifecycle, tuned for the DUOCT monorepo.",
+  "name": "bow-skills",
+  "description": "Company-wide Claude Code skills. 'bow-core' covers the spec→ship development lifecycle for any project; project-specific plugins (e.g. 'octopus') layer on top.",
   "owner": {
     "name": "Bow (Tuan Nguyen)",
     "url": "https://github.com/Bow-T"
   },
   "plugins": [
     {
-      "name": "duoct-skills",
-      "source": {
-        "source": "github",
-        "repo": "Bow-T/duoct-agent-skills"
-      },
-      "description": "12 skills for the DUOCT monorepo: company-specific (octopus-commit, octopus-ui, supabase-security-review), dev-lifecycle (spec, plan, TDD, debug, simplify, app-layer security), and Stripe integration helpers.",
-      "homepage": "https://github.com/Bow-T/duoct-agent-skills",
+      "name": "bow-core",
+      "source": "./plugins/bow-core",
+      "description": "Project-agnostic engineering skills: spec, planning, TDD, debugging, simplification, app-layer security, and Stripe integration helpers. Works on any codebase.",
+      "homepage": "https://github.com/Bow-T/bow-skills",
       "license": "MIT",
-      "keywords": ["duoct", "skills", "flutter", "supabase", "stripe", "tdd", "security", "octopus"]
+      "keywords": ["skills", "spec", "tdd", "debug", "security", "stripe", "lifecycle"]
+    },
+    {
+      "name": "octopus",
+      "source": "./plugins/octopus",
+      "description": "Project-specific skills for the Octopus app / monorepo: the Octopus commit pipeline, Flutter MVVM scaffolding, and Supabase security review. Install only when working on Octopus.",
+      "homepage": "https://github.com/Bow-T/bow-skills",
+      "license": "MIT",
+      "keywords": ["octopus", "flutter", "supabase", "commit", "mvvm"]
     }
   ]
 }
