@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "duoct-agent-skills",
+  "description": "DUOCT engineering skills for Claude Code — company conventions (Octopus commit pipeline, Supabase security review, Flutter MVVM) plus the full spec→ship development lifecycle, tuned for the DUOCT monorepo.",
+  "owner": {
+    "name": "Bow (Tuan Nguyen)",
+    "url": "https://github.com/Bow-T"
+  },
+  "plugins": [
+    {
+      "name": "duoct-skills",
+      "source": {
+        "source": "github",
+        "repo": "Bow-T/duoct-agent-skills"
+      },
+      "description": "12 skills for the DUOCT monorepo: company-specific (octopus-commit, octopus-ui, supabase-security-review), dev-lifecycle (spec, plan, TDD, debug, simplify, app-layer security), and Stripe integration helpers.",
+      "homepage": "https://github.com/Bow-T/duoct-agent-skills",
+      "license": "MIT",
+      "keywords": ["duoct", "skills", "flutter", "supabase", "stripe", "tdd", "security", "octopus"]
+    }
+  ]
+}

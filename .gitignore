@@ -1,0 +1,11 @@
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Local Claude state (never publish)
+.claude/settings.local.json
+*.local.json
+.env
+.env.*
