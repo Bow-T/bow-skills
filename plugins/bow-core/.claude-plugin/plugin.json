@@ -1,6 +1,6 @@
 {
   "name": "bow-core",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Project-agnostic engineering skills covering the spec→ship development lifecycle, plus Stripe integration helpers.",
   "author": {
     "name": "Bow (Tuan Nguyen)"
@@ -8,5 +8,6 @@
   "homepage": "https://github.com/Bow-T/bow-skills",
   "repository": "https://github.com/Bow-T/bow-skills",
   "license": "MIT",
-  "skills": "./skills"
+  "skills": "./skills",
+  "commands": "./commands"
 }
