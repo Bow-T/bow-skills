@@ -1,27 +1,19 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "bow-skills",
-  "description": "Company-wide Claude Code skills. 'bow-core' covers the spec→ship development lifecycle for any project; project-specific plugins (e.g. 'octopus') layer on top.",
+  "description": "Company-wide Claude Code skills. A single 'bow-core' plugin covering the spec→ship development lifecycle plus the team's commit pipeline, Flutter MVVM, and Supabase conventions.",
   "owner": {
-    "name": "Bow (Tuan Nguyen)",
-    "url": "https://github.com/Bow-T"
+    "name": "BOW Skills",
+    "url": "https://github.com/Bow-T/bow-skills"
   },
   "plugins": [
     {
       "name": "bow-core",
       "source": "./plugins/bow-core",
-      "description": "Project-agnostic engineering skills: spec, planning, TDD, debugging, simplification, app-layer security, and Stripe integration helpers. Works on any codebase.",
+      "description": "Engineering skills across the full spec→ship lifecycle (spec, planning, TDD, debugging, review, simplification, security, performance, observability, shipping, docs, migration, CI/CD), plus the team commit pipeline and Flutter/Supabase conventions. Includes review/security/test/perf subagents.",
       "homepage": "https://github.com/Bow-T/bow-skills",
       "license": "MIT",
-      "keywords": ["skills", "spec", "tdd", "debug", "security", "stripe", "lifecycle"]
-    },
-    {
-      "name": "octopus",
-      "source": "./plugins/octopus",
-      "description": "Project-specific skills for the Octopus app / monorepo: the Octopus commit pipeline, Flutter MVVM scaffolding, and Supabase security review. Install only when working on Octopus.",
-      "homepage": "https://github.com/Bow-T/bow-skills",
-      "license": "MIT",
-      "keywords": ["octopus", "flutter", "supabase", "commit", "mvvm"]
+      "keywords": ["skills", "spec", "tdd", "debug", "review", "security", "performance", "lifecycle", "flutter", "supabase", "commit", "mvvm"]
     }
   ]
 }

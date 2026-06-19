@@ -1,0 +1,30 @@
+# Git hooks for the shared commit convention. Brand-neutral, no private deps.
+#
+# Install in a target repo:
+#   npm i -D lefthook @commitlint/cli @commitlint/config-conventional
+#   cp tooling/lefthook.yml <repo>/lefthook.yml
+#   cp tooling/commitlint.config.cjs <repo>/commitlint.config.cjs
+#   npx lefthook install
+#
+# Now bad commit messages are rejected at commit-msg time — the commit-pipeline
+# skill's format rules become machine-enforced, not just guidance.
+
+commit-msg:
+  commands:
+    commitlint:
+      run: npx --no -- commitlint --edit {1}
+
+pre-commit:
+  parallel: true
+  commands:
+    # Block secret-like files before they ever get committed.
+    block-secrets:
+      run: |
+        leaked=$(git diff --cached --name-only | grep -E '(^|/)(\.env($|\..*)|.*\.(key|pem|p12|keystore))$' || true)
+        if [ -n "$leaked" ]; then
+          echo "✗ refusing to stage secret-like files:"; echo "$leaked"; exit 1
+        fi
+    # Optional — enable when the repo adopts a shared eslint/prettier setup:
+    # lint:
+    #   glob: '*.{js,jsx,ts,tsx,mjs,cjs}'
+    #   run: npx eslint {staged_files}
