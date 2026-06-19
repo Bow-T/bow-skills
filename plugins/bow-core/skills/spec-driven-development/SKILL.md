@@ -1,200 +1,148 @@
 ---
 name: spec-driven-development
-description: Creates specs before coding, tied to a tracker ticket. Use when starting a new feature or significant change and no spec exists. Use when requirements are unclear, ambiguous, or only a vague idea — capture Acceptance Criteria with code-path Evidence rather than hand-checked progress. Feeds [[planning-and-task-breakdown]].
+description: Write an agreed specification, linked to a tracker ticket, before any implementation. Trigger when kicking off a new feature, a multi-file change, or an architectural decision and no spec exists yet — especially when the ask is vague ("make it faster", "add reporting"). Convert fuzzy wants into testable acceptance criteria with concrete code-path evidence. Hands off to [[planning-and-task-breakdown]].
 ---
 
 # Spec-Driven Development
 
-## Overview
+## Why this exists
 
-Write a structured specification before writing any code. The spec is the shared source of truth between you and the human engineer — it defines what we're building, why, and how we'll know it's done. Code without a spec is guessing.
+A spec is the contract you and the requester agree on *before* code is typed. It pins down the target so the work can be verified instead of vibe-checked. Skip it and you are building from your own guesses — the most expensive kind of misunderstanding, because nobody notices until the feature is wrong.
 
-## When to Use
+## Reach for this when
 
-- Starting a new project or feature
-- Requirements are ambiguous or incomplete
-- The change touches multiple files or modules
-- You're about to make an architectural decision
-- The task would take more than 30 minutes to implement
+- A feature or epic is starting and there is no written agreement on scope
+- The request is open-ended, hand-wavy, or one line long
+- The change spans multiple modules, packages, or a Supabase migration
+- An architectural call is on the table (state management, data shape, auth model)
+- The work is clearly more than a quick edit
 
-**When NOT to use:** Single-line fixes, typo corrections, or changes where requirements are unambiguous and self-contained.
+Skip it for typos, copy tweaks, one-line fixes, and anything where "done" is self-evident.
 
-## The Gated Workflow
+## Gate the work into phases
 
-Spec-driven development has four phases. Do not advance to the next phase until the current one is validated.
-
-```
-SPECIFY ──→ PLAN ──→ TASKS ──→ IMPLEMENT
-   │          │        │          │
-   ▼          ▼        ▼          ▼
- Human      Human    Human      Human
- reviews    reviews  reviews    reviews
-```
-
-### Phase 1: Specify
-
-Start with a high-level vision. Ask the human clarifying questions until requirements are concrete.
-
-**Surface assumptions immediately.** Before writing any spec content, list what you're assuming:
+Each phase ends with the requester signing off. Do not roll into the next phase on your own authority.
 
 ```
-ASSUMPTIONS I'M MAKING:
-1. This is a web application (not native mobile)
-2. Authentication uses session-based cookies (not JWT)
-3. The database is PostgreSQL (based on existing Prisma schema)
-4. We're targeting modern browsers only (no IE11)
-→ Correct me now or I'll proceed with these.
+DEFINE → DESIGN → SLICE → BUILD
+  (sign-off)  (sign-off)  (sign-off)  (sign-off)
 ```
 
-Don't silently fill in ambiguous requirements. The spec's entire purpose is to surface misunderstandings *before* code gets written — assumptions are the most dangerous form of misunderstanding.
+`SLICE` and `BUILD` are owned by [[planning-and-task-breakdown]] and [[incremental-implementation]]. This skill owns DEFINE and DESIGN.
 
-**Write a spec document covering these six core areas:**
+## Phase 1 — Define
 
-1. **Objective** — What are we building and why? Who is the user? What does success look like?
+### State your assumptions out loud first
 
-2. **Commands** — Full executable commands with flags, not just tool names.
-   ```
-   Build: npm run build
-   Test: npm test -- --coverage
-   Lint: npm run lint --fix
-   Dev: npm run dev
-   ```
+Before drafting anything, dump every assumption you are about to bake in and ask for a correction. Example for this stack:
 
-3. **Project Structure** — Where source code lives, where tests go, where docs belong.
-   ```
-   src/           → Application source code
-   src/components → React components
-   src/lib        → Shared utilities
-   tests/         → Unit and integration tests
-   e2e/           → End-to-end tests
-   docs/          → Documentation
-   ```
+```
+ASSUMPTIONS (correct me before I continue):
+- Client is Flutter (mobile + web), not a separate native build
+- Backend is Supabase; auth is Supabase Auth with RLS, not a custom server
+- New tables get row-level security from day one
+- Reads go through the existing repository layer, not raw queries in widgets
+```
 
-4. **Code Style** — One real code snippet showing your style beats three paragraphs describing it. Include naming conventions, formatting rules, and examples of good output.
+Never quietly resolve an ambiguity. Surfacing assumptions is the entire point — a wrong assumption caught here costs a sentence, caught in code review it costs a day.
 
-5. **Testing Strategy** — What framework, where tests live, coverage expectations, which test levels for which concerns.
+### Turn vague asks into measurable criteria
 
-6. **Boundaries** — Three-tier system:
-   - **Always do:** Run tests before commits, follow naming conventions, validate inputs
-   - **Ask first:** Database schema changes, adding dependencies, changing CI config
-   - **Never do:** Commit secrets, edit vendor directories, remove failing tests without approval
+Rewrite the request as conditions a test or a person can check.
 
-**Spec template:**
+```
+ASK:    "Loading the dashboard feels slow"
+
+CRITERIA (confirm these are the right numbers):
+- First meaningful frame renders in under 400ms on a mid-tier Android device
+- The summary query returns in under 200ms p95 against production-sized data
+- No spinner flashes for cached data (stale-while-revalidate)
+```
+
+Now you have something to build toward and loop against, instead of chasing a feeling.
+
+### Capture acceptance criteria WITH evidence
+
+Each criterion names the code path that proves it, not a checkbox someone ticks by hand.
+
+```
+- [ ] User can archive a task
+      Evidence: TaskRepository.archive() flips status; widget test
+      task_card_test.dart asserts archived tasks move to the Archived tab
+- [ ] Archived tasks are excluded from the active count
+      Evidence: SQL view active_task_count filters status <> 'archived'
+```
+
+### Spec skeleton
 
 ```markdown
-# Spec: [Project/Feature Name]
+# Spec: <feature> (<TICKET-ID>)
 
-## Objective
-[What we're building and why. User stories or acceptance criteria.]
+## Goal
+Who is this for, what do they get, and how do we recognise success?
 
-## Tech Stack
-[Framework, language, key dependencies with versions]
+## Stack & dependencies
+Languages, frameworks, packages/versions, Supabase tables touched.
 
-## Commands
-[Build, test, lint, dev — full commands]
+## Acceptance criteria (with evidence)
+- [ ] <criterion> — Evidence: <code path / test that proves it>
 
-## Project Structure
-[Directory layout with descriptions]
-
-## Code Style
-[Example snippet + key conventions]
-
-## Testing Strategy
-[Framework, test locations, coverage requirements, test levels]
+## Out of scope
+Things people will assume are included but are not.
 
 ## Boundaries
-- Always: [...]
-- Ask first: [...]
-- Never: [...]
+- Always: <e.g. RLS on new tables, validate input at the edge>
+- Ask first: <schema migrations, new dependency, auth changes>
+- Never: <commit secrets, delete failing tests, skip RLS>
 
-## Success Criteria
-[How we'll know this is done — specific, testable conditions]
-
-## Open Questions
-[Anything unresolved that needs human input]
+## Open questions
+Anything still unresolved that needs a human answer.
 ```
 
-**Reframe instructions as success criteria.** When receiving vague requirements, translate them into concrete conditions:
+## Phase 2 — Design
 
-```
-REQUIREMENT: "Make the dashboard faster"
+With the spec approved, write a short technical approach the requester can react to:
 
-REFRAMED SUCCESS CRITERIA:
-- Dashboard LCP < 2.5s on 4G connection
-- Initial data load completes in < 500ms
-- No layout shift during load (CLS < 0.1)
-→ Are these the right targets?
-```
+- The components involved and how data flows between them
+- The build order driven by dependencies (what must exist first)
+- Risks and how you will de-risk them
+- Verification checkpoints between chunks of work
 
-This lets you loop, retry, and problem-solve toward a clear goal rather than guessing what "faster" means.
+The design is good when someone can read it and reply "yes" or "change X" without reading any code.
 
-### Phase 2: Plan
+## Keep the spec alive
 
-With the validated spec, generate a technical implementation plan:
+The spec is a living document tied to its ticket:
 
-1. Identify the major components and their dependencies
-2. Determine the implementation order (what must be built first)
-3. Note risks and mitigation strategies
-4. Identify what can be built in parallel vs. what must be sequential
-5. Define verification checkpoints between phases
+- Decision changes? Edit the spec first, then the code follows.
+- Scope grows or shrinks? Reflect it in the spec before building.
+- Keep the spec in version control next to the code.
+- When you open a PR, point at the spec section it satisfies.
 
-The plan should be reviewable: the human should be able to read it and say "yes, that's the right approach" or "no, change X."
+Committing the spec follows the team convention — see [[commit-pipeline]]. Do not invent a different message format.
 
-### Phase 3: Tasks
+## Excuses and rebuttals
 
-Break the plan into discrete, implementable tasks:
-
-- Each task should be completable in a single focused session
-- Each task has explicit acceptance criteria
-- Each task includes a verification step (test, build, manual check)
-- Tasks are ordered by dependency, not by perceived importance
-- No task should require changing more than ~5 files
-
-**Task template:**
-```markdown
-- [ ] Task: [Description]
-  - Acceptance: [What must be true when done]
-  - Verify: [How to confirm — test command, build, manual check]
-  - Files: [Which files will be touched]
-```
-
-### Phase 4: Implement
-
-Execute tasks one at a time following `skills/incremental-implementation/SKILL.md` (`incremental-implementation`) and `skills/test-driven-development/SKILL.md` (`test-driven-development`). Use `skills/context-engineering/SKILL.md` (`context-engineering`) to load the right spec sections and source files at each step rather than flooding the agent with the entire spec.
-
-## Keeping the Spec Alive
-
-The spec is a living document, not a one-time artifact:
-
-- **Update when decisions change** — If you discover the data model needs to change, update the spec first, then implement.
-- **Update when scope changes** — Features added or cut should be reflected in the spec.
-- **Commit the spec** — The spec belongs in version control alongside the code.
-- **Reference the spec in PRs** — Link back to the spec section that each PR implements.
-
-## Common Rationalizations
-
-| Rationalization | Reality |
+| Excuse | Reality |
 |---|---|
-| "This is simple, I don't need a spec" | Simple tasks don't need *long* specs, but they still need acceptance criteria. A two-line spec is fine. |
-| "I'll write the spec after I code it" | That's documentation, not specification. The spec's value is in forcing clarity *before* code. |
-| "The spec will slow us down" | A 15-minute spec prevents hours of rework. Waterfall in 15 minutes beats debugging in 15 hours. |
-| "Requirements will change anyway" | That's why the spec is a living document. An outdated spec is still better than no spec. |
-| "The user knows what they want" | Even clear requests have implicit assumptions. The spec surfaces those assumptions. |
+| "Too small for a spec" | Small means a *short* spec, not no acceptance criteria. Two lines is fine. |
+| "I'll document it after" | After-the-fact notes describe what you built; a spec forces clarity before you build. |
+| "A spec slows us down" | Fifteen minutes of spec beats a day of rework on the wrong thing. |
+| "Requirements will shift" | Exactly why it is a living doc. A stale spec still beats no spec. |
+| "The requester already knows what they want" | They know the want; the spec exposes the hidden assumptions inside it. |
 
-## Red Flags
+## Red flags
 
-- Starting to write code without any written requirements
-- Asking "should I just start building?" before clarifying what "done" means
-- Implementing features not mentioned in any spec or task list
-- Making architectural decisions without documenting them
-- Skipping the spec because "it's obvious what to build"
+- Writing code with no written agreement on what "done" means
+- Asking "should I just start?" before defining the target
+- Shipping behaviour that appears in no criterion
+- Making an architecture decision and recording it nowhere
+- Skipping the spec because "it's obvious"
 
-## Verification
+## Before you leave this phase
 
-Before proceeding to implementation, confirm:
-
-- [ ] The spec covers all six core areas
-- [ ] The human has reviewed and approved the spec
-- [ ] Success criteria are specific and testable
-- [ ] Boundaries (Always/Ask First/Never) are defined
-- [ ] The spec is saved to a file in the repository
+- [ ] Assumptions were stated and confirmed
+- [ ] Every acceptance criterion is testable and names its evidence
+- [ ] Out-of-scope and boundaries are written down
+- [ ] The requester approved the spec
+- [ ] The spec is committed and linked to its ticket
