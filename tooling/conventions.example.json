@@ -1,0 +1,9 @@
+{
+  "$comment": "Copy to your repo root as `.conventions.json` and fill in. The commit-pipeline / flutter / supabase skills and commitlint.config.cjs read these so nothing is hardcoded.",
+  "jiraKey": "PROJ",
+  "baseBranch": "dev",
+  "appDir": "apps/mobile",
+  "appPackage": "app",
+  "commitScript": "scripts/commit.sh",
+  "securityScript": "scripts/check-security.sh"
+}
