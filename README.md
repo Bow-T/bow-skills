@@ -142,6 +142,18 @@ Install steps: [`tooling/README.md`](tooling/README.md). Strategy: [`docs/conven
 - **Fork** this repo and tune the skills, commands, and `.conventions.json` defaults to your team.
 - **Copy** individual `SKILL.md` folders into your own `.claude/skills/` if you only want a few.
 
+### Other assistants (Cursor, Copilot, Codex…)
+
+Claude Code loads the full skills by context. For other assistants, render the conventions and a
+skill index into their rule files from one source:
+
+```bash
+node tooling/render-rules.mjs   # writes CLAUDE.md, AGENTS.md, .github/copilot-instructions.md, .cursor/rules/
+```
+
+Edit [`tooling/conventions.base.md`](tooling/conventions.base.md) and re-run; each file keeps a
+managed block so your own content is preserved. See [`tooling/README.md`](tooling/README.md#multi-assistant-rules).
+
 ---
 
 ## Repository structure

@@ -15,6 +15,8 @@ parts actually block. Two layers, on purpose:
 | `commitlint.config.cjs` | Conventional-Commits + custom rules: `jira-key-present` (warn), `no-ai-coauthor` (block). Standalone — only needs `@commitlint/*`. |
 | `lefthook.yml` | Git hooks: run commitlint on `commit-msg`, block secret-like files on `pre-commit`. |
 | `conventions.example.json` | Per-repo config template. Copy to repo root as `.conventions.json`. |
+| `conventions.base.md` | Source of truth for the multi-assistant rules digest. |
+| `render-rules.mjs` | Renders `conventions.base.md` + a skill index into each assistant's rule file. |
 
 ## Install in a target repo
 
@@ -31,6 +33,28 @@ Test it:
 ```bash
 echo "chore: bad" | npx commitlint        # fails: subject too short, no Jira key (warn)
 ```
+
+## Multi-assistant rules
+
+Claude Code loads the full skills by context. Other assistants (Codex/AGENTS.md, Cursor,
+Copilot) read a static rule file instead. One command renders all of them from a single source:
+
+```bash
+node tooling/render-rules.mjs
+```
+
+It writes a digest of `conventions.base.md` plus an auto-generated skill index into:
+
+| Target | Assistant |
+|---|---|
+| `CLAUDE.md` | Claude Code / Claude |
+| `AGENTS.md` | Codex and other AGENTS.md-aware tools |
+| `.github/copilot-instructions.md` | GitHub Copilot |
+| `.cursor/rules/bow-skills.mdc` | Cursor |
+
+Each file keeps a `BOW:BEGIN … BOW:END` managed block; content you write outside it is preserved,
+and re-running is idempotent. Edit the conventions in `conventions.base.md` (never the generated
+files), then re-run. The skill index is rebuilt from every `SKILL.md` frontmatter automatically.
 
 ## Per-repo config (`.conventions.json`)
 
