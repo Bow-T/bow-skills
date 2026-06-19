@@ -1,51 +1,101 @@
 # BOW Skills
 
-Bộ **Claude Code skills** dùng chung cho công ty, đóng gói thành một **plugin marketplace**.
-Mỗi thành viên cài một lần là có chung quy trình làm việc với Claude.
+**Production-grade engineering skills for Claude Code, packaged as a plugin marketplace.**
 
-Skill là *workflow* mà Claude tự kích hoạt theo ngữ cảnh — không phải tài liệu để đọc. Mỗi skill
-có trigger riêng trong frontmatter; khi mô tả công việc khớp trigger, Claude áp dụng quy trình đó.
+Install once, and every engineer shares the same working agreement with Claude: how we spec,
+plan, test, review, harden, ship, and commit. Skills are *workflows the agent activates by
+context* — not documents you read. Each skill declares a trigger; when your task matches, Claude
+applies that process automatically.
 
-## Hai plugin
+The machine-checkable parts (commit format, secret hygiene) are enforced by git hooks, so the
+rules hold regardless of which assistant — or human — is at the keyboard.
 
-| Plugin | Phạm vi | Khi nào cài |
-| :-- | :-- | :-- |
-| **`bow-core`** | Trung lập, dùng cho **mọi dự án** | Luôn nên cài |
-| **`octopus`** | Riêng dự án **Octopus** (app/monorepo) | Chỉ khi làm việc trên Octopus |
+---
 
-## Cài đặt
+## Why skills
 
-> Repo này là **private** — mỗi thành viên cần quyền đọc `Bow-T/bow-skills`.
+A skill encodes what a senior engineer does on autopilot and a model otherwise forgets under
+pressure: write the failing test first, find the root cause instead of the symptom, reuse before
+you build, verify at runtime instead of trusting a green compile. Bundling them into one
+marketplace means the whole team inherits the same judgment, and it improves in one place.
 
-```
-/plugin marketplace add Bow-T/bow-skills
+Two layers, on purpose:
+
+- **Judgment rules → skills** (`plugins/bow-core/skills/`) — deep, contextual procedure a linter
+  can't encode.
+- **Hard rules → tooling** (`tooling/`) — commit format, no-AI-trailer, secret files. Enforced at
+  commit time, not left to goodwill.
+
+---
+
+## Install
+
+> This repository is private — each member needs read access to the marketplace repo.
+
+```bash
+/plugin marketplace add <your-org>/bow-skills
 /plugin install bow-core@bow-skills
-/plugin install octopus@bow-skills      # chỉ khi làm dự án Octopus
 ```
 
-Sau khi cài, các skill tự xuất hiện và Claude tự chọn theo ngữ cảnh.
+Skills appear automatically; Claude selects them by context. To run one explicitly, use the
+slash commands below.
 
-## bow-core — skill chung (9)
+---
 
-### Vòng đời phát triển (spec → ship)
-| Skill | Khi nào dùng |
+## Skill catalog (26)
+
+### Discover & define
+| Skill | Use when |
 | :-- | :-- |
-| `spec-driven-development` | Viết spec gắn ticket trước khi code. |
-| `planning-and-task-breakdown` | Tách spec thành task, 1 feature branch / unit. |
-| `test-driven-development` | TDD (`*_test.dart`, `*.spec.ts`…). |
-| `debugging-and-error-recovery` | Truy root-cause; verify runtime, không chỉ static green. |
-| `code-simplification` | Dọn code thừa, giữ nguyên hành vi. |
-| `security-and-hardening` | Hardening **app-layer** (mobile/web/payment). DB-layer dùng skill review riêng. |
+| `interview-me` | Surface what the user actually wants before any plan or code (one question at a time). |
+| `idea-refine` | Turn a vague idea into a sharp, actionable concept. |
+| `spec-driven-development` | Write a tracker-linked spec before coding. |
+| `planning-and-task-breakdown` | Decompose a spec into ordered, verifiable tasks — one branch per unit. |
 
-### Tích hợp Stripe
-| Skill | Khi nào dùng |
+### Build
+| Skill | Use when |
 | :-- | :-- |
-| `stripe-best-practices` | Quyết định tích hợp Stripe (Checkout vs PaymentIntents, Connect, webhook, key…). |
-| `stripe-projects` | Provision hạ tầng/dịch vụ qua Stripe Projects. |
-| `upgrade-stripe` | Nâng cấp Stripe API version / SDK. |
+| `context-engineering` | Load the right context into the session/agent. |
+| `source-driven-development` | Ground implementation in official, cited documentation. |
+| `incremental-implementation` | Deliver in thin vertical slices, verifying each before expanding. |
+| `api-and-interface-design` | Design stable APIs/interfaces with clear contracts. |
+| `frontend-ui-engineering` | Build production-quality web UI with accessibility. |
+| `flutter-data-model` | Write Flutter models the generated way (`@JsonSerializable` + build_runner) — never hand-write `fromJson`. |
+| `flutter-mvvm` | Build Flutter screens with the BaseViewModel + MixinBasePage MVVM pattern. |
 
-### Slash-command (bow-core)
-Gọi nhanh từng skill thay vì chờ Claude tự route:
+### Verify & review
+| Skill | Use when |
+| :-- | :-- |
+| `test-driven-development` | Failing test first, then make it pass (`*_test.dart`, `*.spec.ts`, …). |
+| `doubt-driven-development` | Subject high-stakes decisions to adversarial, fresh-context review. |
+| `debugging-and-error-recovery` | Reproduce → localize → fix → guard. Verify at runtime, not just a green build. |
+| `code-review-and-quality` | Multi-axis review before merge. |
+| `code-simplification` | Reduce complexity while preserving behavior. |
+
+### Harden
+| Skill | Use when |
+| :-- | :-- |
+| `security-and-hardening` | App-layer hardening (input, auth, storage, integrations). |
+| `supabase-security-review` | Audit Supabase RLS / views / triggers / edge functions before commit. |
+| `performance-optimization` | Optimize against measured budgets / Core Web Vitals. |
+
+### Ship & operate
+| Skill | Use when |
+| :-- | :-- |
+| `ci-cd-and-automation` | Set up or modify build/deploy pipelines and quality gates. |
+| `shipping-and-launch` | Pre-launch checklist, monitoring, rollback plan. |
+| `observability-and-instrumentation` | Add logs, metrics, traces, and symptom-based alerts. |
+| `commit-pipeline` | Commit & push — Conventional Commits, tracker footer, **no AI-authorship trailer**. |
+| `deprecation-and-migration` | Retire old systems and migrate users safely. |
+| `documentation-and-adrs` | Record architectural decisions and the *why*. |
+
+### Meta
+| Skill | Use when |
+| :-- | :-- |
+| `using-agent-skills` | Discover which skill applies to the current task. |
+
+### Slash commands
+Invoke a skill directly instead of waiting for the router:
 
 | Command | Skill |
 | :-- | :-- |
@@ -56,33 +106,81 @@ Gọi nhanh từng skill thay vì chờ Claude tự route:
 | `/tidy <area>` | code-simplification |
 | `/harden <surface>` | security-and-hardening |
 
-## octopus — skill riêng dự án Octopus (3)
+---
 
-| Skill | Khi nào dùng |
+## Subagents (4)
+
+Specialized agents in `plugins/bow-core/agents/`, for delegated deep passes:
+
+| Agent | Role |
 | :-- | :-- |
-| `octopus-commit` | Commit + push theo pipeline commit của Octopus (safety scan → analyze → Conventional Commit + ticket ref). |
-| `octopus-ui` | Dựng/sửa UI & page Flutter theo kiến trúc MVVM (BaseViewModel + MixinBasePage). |
-| `supabase-security-review` | Audit thay đổi Supabase (RLS, view, trigger, edge fn, SQL) trước khi commit. |
+| `code-reviewer` | Multi-axis review of a diff. |
+| `security-auditor` | Adversarial security audit. |
+| `test-engineer` | Test design and coverage analysis. |
+| `web-performance-auditor` | Web performance audit (Core Web Vitals, traces). |
 
-## Cấu trúc
+Reference checklists live in `plugins/bow-core/references/` (accessibility, observability,
+orchestration, performance, security, testing) and are linked from the skills.
+
+---
+
+## Enforcement (`tooling/`)
+
+Skills describe *how* to work; `tooling/` turns the machine-checkable parts into **hard rules**
+that block at commit time:
+
+| File | Role |
+| :-- | :-- |
+| `tooling/commitlint.config.cjs` | Conventional Commits + `jira-key-present` (warn) + `no-ai-coauthor` (blocks AI-authorship trailers). |
+| `tooling/lefthook.yml` | Hooks: lint the commit message, block secret-like files at pre-commit. |
+| `tooling/conventions.example.json` | Template for per-repo `.conventions.json`. |
+
+Install steps are in [`tooling/README.md`](tooling/README.md). The skill-vs-tooling strategy is
+in [`docs/conventions-strategy.md`](docs/conventions-strategy.md).
+
+### Per-repo config (`.conventions.json`)
+
+One file removes every hardcoded placeholder — both the skills and `commitlint.config.cjs` read
+it:
+
+| Key | Used for |
+| :-- | :-- |
+| `jiraKey` / `jiraKeys` | Commit footer, branch prefix, commitlint. |
+| `baseBranch` | The branch you must not commit to directly. |
+| `appDir` | Where the app lives (scoping for staging / analysis). |
+| `appPackage` | Import root (`package:<appPackage>/…`). |
+| `commitScript` / `securityScript` | The repo's local gate scripts, if any. |
+
+---
+
+## Repository structure
 
 ```
 .claude-plugin/
-  marketplace.json          # định nghĩa marketplace + liệt kê 2 plugin
+  marketplace.json            # marketplace definition + plugin list
 plugins/
   bow-core/
     .claude-plugin/plugin.json
-    skills/<skill>/SKILL.md
-  octopus/
-    .claude-plugin/plugin.json
-    skills/<skill>/SKILL.md
+    commands/<command>.md       # slash commands
+    skills/<skill>/SKILL.md     # the skills
+    agents/<agent>.md           # subagents
+    references/<checklist>.md    # checklists the skills cite
+tooling/                       # commitlint + lefthook + .conventions.json template
+docs/
+  conventions-strategy.md      # skills vs enforced tooling
 ```
 
-## Đóng góp
+---
 
-- Skill chung → `plugins/bow-core/skills/`. Skill riêng một dự án → tạo plugin riêng (như `octopus`).
-- Mỗi skill = 1 thư mục chứa `SKILL.md` với frontmatter `name` + `description`.
-- `description` phải nêu rõ **khi nào** kích hoạt (trigger) để Claude route đúng.
-- **Không** nhúng thông tin nội bộ nhạy cảm vào `bow-core` (giữ trung lập, có thể public sau này).
+## Contributing
 
-Xem [ATTRIBUTION.md](ATTRIBUTION.md) cho nguồn gốc các skill bên thứ ba.
+- Every skill lives in `plugins/bow-core/skills/`. Keep names and content neutral and reusable —
+  no project- or vendor-specific branding in the skill body; read per-repo values from
+  `.conventions.json` instead.
+- A skill is one folder with `SKILL.md` carrying frontmatter `name` + `description`.
+- The `description` must state **when** the skill triggers, so Claude routes to it correctly.
+- Do not embed sensitive internal information in a skill.
+
+## License
+
+MIT — see [`LICENSE`](LICENSE). All skills, subagents, and reference checklists are original works.

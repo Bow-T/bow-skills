@@ -1,13 +1,14 @@
 {
   "name": "bow-core",
-  "version": "1.1.0",
-  "description": "Project-agnostic engineering skills covering the spec→ship development lifecycle, plus Stripe integration helpers.",
+  "version": "2.2.0",
+  "description": "Engineering skills covering the full spec→ship lifecycle (spec, planning, TDD, debugging, review, simplification, security, performance, observability, shipping, docs, migration, CI/CD, and more), plus the team's commit pipeline and Flutter/Supabase conventions. Includes review/security/test/perf subagents.",
   "author": {
-    "name": "Bow (Tuan Nguyen)"
+    "name": "BOW Skills"
   },
   "homepage": "https://github.com/Bow-T/bow-skills",
   "repository": "https://github.com/Bow-T/bow-skills",
   "license": "MIT",
   "skills": "./skills",
-  "commands": "./commands"
+  "commands": "./commands",
+  "agents": "./agents"
 }
