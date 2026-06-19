@@ -65,4 +65,8 @@ When a task matches one of these, follow that workflow. In Claude Code the full 
 | `flutter-mvvm` | flutter-supabase | Build or edit Flutter UI and pages in apps/mobile using the Flutter MVVM architecture — the BaseViewModel + MixinBasePage page+view-model pattern (ChangeState state machine, lifecycle hooks, optimistic updates), reusing existing components, the app theme/spacing/localization, and typed models (never raw maps) in widgets. |
 | `supabase-security-review` | flutter-supabase | Audit Supabase/backend changes (RLS, views, triggers, edge functions, SQL) for the recurring security issues the AI review gate penalises, before committing. |
 
+
+## Loading this file in Codex / AGENTS.md tools
+
+Codex and other AGENTS.md-aware tools read this automatically from the repo root; when several exist, the one nearest the edited file wins. No extra configuration is needed.
 <!-- BOW:END -->

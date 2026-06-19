@@ -66,12 +66,7 @@ When a task matches one of these, follow that workflow. In Claude Code the full 
 | `supabase-security-review` | flutter-supabase | Audit Supabase/backend changes (RLS, views, triggers, edge functions, SQL) for the recurring security issues the AI review gate penalises, before committing. |
 
 
-## Loading this file in Claude Code
+## Loading this file in Gemini
 
-Claude Code reads this automatically from the repo root. For the full skills (not just this digest), add the marketplace and install the plugin:
-
-```bash
-/plugin marketplace add Bow-T/bow-skills
-/plugin install bow-core@bow-skills
-```
+The Gemini CLI and Gemini Code Assist read this from the project root, merging `~/.gemini/GEMINI.md` if present. No extra configuration is needed.
 <!-- BOW:END -->

@@ -45,16 +45,21 @@ node tooling/render-rules.mjs
 
 It writes a digest of `conventions.base.md` plus an auto-generated skill index into:
 
-| Target | Assistant |
-|---|---|
-| `CLAUDE.md` | Claude Code / Claude |
-| `AGENTS.md` | Codex and other AGENTS.md-aware tools |
-| `.github/copilot-instructions.md` | GitHub Copilot |
-| `.cursor/rules/bow-skills.mdc` | Cursor |
+| Target | Assistant | How it loads |
+|---|---|---|
+| `CLAUDE.md` | Claude Code / Claude | Auto-read from repo root (+ install the plugin for full skills) |
+| `AGENTS.md` | Codex and other AGENTS.md-aware tools | Auto-discovered; nearest file wins |
+| `GEMINI.md` | Gemini CLI / Code Assist | Auto-read from project root |
+| `.github/copilot-instructions.md` | GitHub Copilot | Set `github.copilot.chat.codeGeneration.useInstructionFiles: true` in VS Code |
+| `.cursor/rules/bow-skills.mdc` | Cursor | `alwaysApply: true` frontmatter (or scope with `globs`) |
+
+Each generated file ends with a **"Loading this file in …"** section carrying that assistant's
+exact setup snippet, so anyone opening it sees how to wire it up.
 
 Each file keeps a `BOW:BEGIN … BOW:END` managed block; content you write outside it is preserved,
-and re-running is idempotent. Edit the conventions in `conventions.base.md` (never the generated
-files), then re-run. The skill index is rebuilt from every `SKILL.md` frontmatter automatically.
+and re-running is idempotent. Edit the conventions in `conventions.base.md` and the per-assistant
+setup notes in `render-rules.mjs` (never the generated files), then re-run. The skill index is
+rebuilt from every `SKILL.md` frontmatter automatically.
 
 ## Per-repo config (`.conventions.json`)
 

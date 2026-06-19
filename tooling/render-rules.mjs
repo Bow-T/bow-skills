@@ -1,12 +1,15 @@
 #!/usr/bin/env node
-// Render one source of conventions + a generated skill index into every assistant's
-// rule file: CLAUDE.md, AGENTS.md, .github/copilot-instructions.md, .cursor/rules/bow-skills.mdc.
+// Render one source of conventions + a generated skill index into every assistant's rule file,
+// each with a tailored "how this assistant loads the file" setup note.
+//
+// Targets: CLAUDE.md, AGENTS.md, GEMINI.md, .github/copilot-instructions.md,
+//          .cursor/rules/bow-skills.mdc
 //
 // Zero dependencies. Run from a repo root:  node tooling/render-rules.mjs
 //
 // Each target keeps a managed block delimited by BOW:BEGIN / BOW:END — anything you write
-// outside that block is preserved across re-runs. Edit tooling/conventions.base.md, not the
-// generated files.
+// outside that block is preserved across re-runs. Edit tooling/conventions.base.md (and the
+// setup notes below), not the generated files.
 
 import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -51,7 +54,7 @@ const firstSentence = (s) => {
   return (m ? m[1] : s).trim();
 };
 
-function buildBody() {
+function commonBody() {
   const base = readFileSync(join(ROOT, 'tooling', 'conventions.base.md'), 'utf8').trim();
   const skills = collectSkills();
   let index =
@@ -62,6 +65,47 @@ function buildBody() {
   for (const s of skills) index += `| \`${s.name}\` | ${s.plugin} | ${firstSentence(s.description)} |\n`;
   return base + index;
 }
+
+// One target per assistant. `setup` documents how THAT assistant picks up the file.
+const targets = [
+  {
+    file: 'CLAUDE.md',
+    label: 'Claude Code',
+    setup:
+      'Claude Code reads this automatically from the repo root. For the full skills (not just this ' +
+      'digest), add the marketplace and install the plugin:\n\n' +
+      '```bash\n/plugin marketplace add Bow-T/bow-skills\n/plugin install bow-core@bow-skills\n```',
+  },
+  {
+    file: 'AGENTS.md',
+    label: 'Codex / AGENTS.md tools',
+    setup:
+      'Codex and other AGENTS.md-aware tools read this automatically from the repo root; when ' +
+      'several exist, the one nearest the edited file wins. No extra configuration is needed.',
+  },
+  {
+    file: 'GEMINI.md',
+    label: 'Gemini',
+    setup:
+      'The Gemini CLI and Gemini Code Assist read this from the project root, merging ' +
+      '`~/.gemini/GEMINI.md` if present. No extra configuration is needed.',
+  },
+  {
+    file: '.github/copilot-instructions.md',
+    label: 'GitHub Copilot',
+    setup:
+      'On github.com Copilot uses this automatically. In VS Code, enable instruction files:\n\n' +
+      '```json\n{ "github.copilot.chat.codeGeneration.useInstructionFiles": true }\n```',
+  },
+  {
+    file: '.cursor/rules/bow-skills.mdc',
+    label: 'Cursor',
+    frontmatter: '---\ndescription: BOW Skills engineering conventions\nalwaysApply: true\n---',
+    setup:
+      'Cursor loads this because the frontmatter sets `alwaysApply: true`. To scope it to certain ' +
+      'paths instead, replace that with e.g. `globs: ["src/**", "lib/**"]`.',
+  },
+];
 
 function writeManaged(file, body, { frontmatter } = {}) {
   mkdirSync(dirname(file), { recursive: true });
@@ -77,11 +121,9 @@ function writeManaged(file, body, { frontmatter } = {}) {
   console.log('wrote', file.replace(ROOT + '/', ''));
 }
 
-const body = buildBody();
-writeManaged(join(ROOT, 'CLAUDE.md'), body);
-writeManaged(join(ROOT, 'AGENTS.md'), body);
-writeManaged(join(ROOT, '.github', 'copilot-instructions.md'), body);
-writeManaged(join(ROOT, '.cursor', 'rules', 'bow-skills.mdc'), body, {
-  frontmatter: '---\ndescription: BOW Skills engineering conventions\nalwaysApply: true\n---',
-});
+const base = commonBody();
+for (const t of targets) {
+  const body = `${base}\n\n## Loading this file in ${t.label}\n\n${t.setup}`;
+  writeManaged(join(ROOT, ...t.file.split('/')), body, { frontmatter: t.frontmatter });
+}
 console.log('done — edit tooling/conventions.base.md and re-run to regenerate.');

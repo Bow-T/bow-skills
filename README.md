@@ -148,8 +148,11 @@ Claude Code loads the full skills by context. For other assistants, render the c
 skill index into their rule files from one source:
 
 ```bash
-node tooling/render-rules.mjs   # writes CLAUDE.md, AGENTS.md, .github/copilot-instructions.md, .cursor/rules/
+node tooling/render-rules.mjs   # writes CLAUDE.md, AGENTS.md, GEMINI.md, .github/copilot-instructions.md, .cursor/rules/
 ```
+
+Each generated file ends with a per-assistant "how to load this" snippet (Copilot setting, Cursor
+`alwaysApply`, plugin install, …), so any tool's setup is right there in its own rule file.
 
 Edit [`tooling/conventions.base.md`](tooling/conventions.base.md) and re-run; each file keeps a
 managed block so your own content is preserved. See [`tooling/README.md`](tooling/README.md#multi-assistant-rules).

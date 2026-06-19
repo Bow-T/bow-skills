@@ -65,4 +65,12 @@ When a task matches one of these, follow that workflow. In Claude Code the full 
 | `flutter-mvvm` | flutter-supabase | Build or edit Flutter UI and pages in apps/mobile using the Flutter MVVM architecture — the BaseViewModel + MixinBasePage page+view-model pattern (ChangeState state machine, lifecycle hooks, optimistic updates), reusing existing components, the app theme/spacing/localization, and typed models (never raw maps) in widgets. |
 | `supabase-security-review` | flutter-supabase | Audit Supabase/backend changes (RLS, views, triggers, edge functions, SQL) for the recurring security issues the AI review gate penalises, before committing. |
 
+
+## Loading this file in GitHub Copilot
+
+On github.com Copilot uses this automatically. In VS Code, enable instruction files:
+
+```json
+{ "github.copilot.chat.codeGeneration.useInstructionFiles": true }
+```
 <!-- BOW:END -->
