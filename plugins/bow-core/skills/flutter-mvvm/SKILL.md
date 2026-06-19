@@ -1,13 +1,15 @@
 ---
-name: octopus-ui
-description: Build or edit Flutter UI and pages in apps/mobile using the DUOCT Flutter MVVM architecture — the BaseViewModel + MixinBasePage page+view-model pattern (ChangeState state machine, lifecycle hooks, optimistic updates), reusing existing components, the app theme/spacing/localization, and typed models (never raw maps) in widgets. Use whenever creating or changing a screen, page, view-model (vm), widget, dialog, or any UI/MVVM code under apps/mobile/lib/src/pages or components.
+name: flutter-mvvm
+description: Build or edit Flutter UI and pages in apps/mobile using the Flutter MVVM architecture — the BaseViewModel + MixinBasePage page+view-model pattern (ChangeState state machine, lifecycle hooks, optimistic updates), reusing existing components, the app theme/spacing/localization, and typed models (never raw maps) in widgets. Use whenever creating or changing a screen, page, view-model (vm), widget, dialog, or any UI/MVVM code under apps/mobile/lib/src/pages or components.
 ---
 
-# Octopus UI — build screens the project way
+# Flutter MVVM — build screens the project way
 
 Goal: every new screen looks and behaves like the existing ones, reuses what's
 already there, and stays type-safe. **Reuse before you build. Match the base
 source before you invent.**
+
+> Paths below assume `appDir = apps/mobile`; read the real value from `.conventions.json`.
 
 ## 1. Reuse first — search the component library
 Before writing any widget, check `apps/mobile/lib/src/components/` — there is
@@ -15,7 +17,7 @@ almost always something to reuse. Catalog:
 - **button/** `AppBounceButton`, `AppCircleButton`, `AppGradientButton`, `AppMonoButton`, `AppOutlinedButton`
 - **input/** `AppTextField`, `AppPasswordField`, `AppSearchField`  ·  **checkbox/ radio/ switch/** `AppCheckbox`, `AppRadio`, `AppSwitch`
 - **dialog/ modal/ popup/ snack_bar/** `AppDialog`, `ModalConfirm`, `AppModal`, `AppPopupMenu`, `AppSnackBar`, `showTopSnackBar`
-- **widget/** `AppBarWidget`, `AppRefreshIndicator`, `TabCard`, `AppChoiceChip`, `CachedImage`, `CachedImageCircle`, `ItemNoFound`, `PagedBuilder`, `ServerError`, `PageError`, `AppLoading`, `AppCircularProgress`, `AppRatingBar`, `StatColumn`, `AppCalendar`, `AppReadMore`, `LuxuryCourierBadge`, …
+- **widget/** `AppBarWidget`, `AppRefreshIndicator`, `TabCard`, `AppChoiceChip`, `CachedImage`, `CachedImageCircle`, `ItemNoFound`, `PagedBuilder`, `ServerError`, `PageError`, `AppLoading`, `AppCircularProgress`, `AppRatingBar`, `StatColumn`, `AppCalendar`, `AppReadMore`, …
 Search first: `grep -ri "class App" apps/mobile/lib/src/components`. If a near-match exists, extend/parameterise it instead of cloning. Only add a new component when nothing fits — and put shared ones in `components/`, screen-local ones in a `widgets/` folder next to the page (e.g. `…/provider_bookings/widgets/provider_booking_card.dart`).
 
 ## 2. Page + ViewModel pattern — the MVVM core (always)
@@ -126,8 +128,7 @@ Widgets read **typed model fields**, never `map['key']`. The query layer returns
 models (RideModel, OrderModel, CourierOrderModel, DriverWalletModel, …); the VM
 holds typed fields/lists; the page binds `provider.someModel.field`. If you find
 yourself indexing a `Map<String,dynamic>` in a widget, the model/query is missing
-a field — fix it there (see the `supabase-security-review` / model conventions),
-don't dig the map in the UI.
+a field — fix it there (see [[flutter-data-model]]), don't dig the map in the UI.
 
 ## 6. Lists, empty & error states
 - Pull-to-refresh: wrap in `AppRefreshIndicator(onRefresh: provider.refresh, …)`.
@@ -137,4 +138,4 @@ don't dig the map in the UI.
 ## 7. Before you finish
 - `cd apps/mobile && fvm flutter analyze` → zero errors AND warnings.
 - Re-check: no hardcoded color/text/string, no map-indexing in widgets, reused existing components where possible, page follows the MixinBasePage pattern.
-- Then hand off to the `octopus-commit` skill to commit/push.
+- Then hand off to the [[commit-pipeline]] skill to commit/push.
