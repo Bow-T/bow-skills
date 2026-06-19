@@ -10,7 +10,7 @@ description: Picks the right skill for the task at hand. Use at the start of a s
 This marketplace bundles two kinds of skills:
 
 - **Lifecycle skills** — one per stage of building software, each encoding a process a careful engineer follows.
-- **Stack/team skills** — conventions specific to this codebase (Flutter/Dart, Supabase, TypeScript, and the commit workflow). When a task touches their area, they are authoritative and override the generic advice.
+- **Workflow & stack skills** — the commit workflow (core), plus optional stack conventions (e.g. the `flutter-supabase` plugin) when installed. When a task lands in their area, they are authoritative and override generic advice.
 
 Your first move on any non-trivial task: find the skill that fits, then follow its steps. This index helps you find it.
 
@@ -87,7 +87,7 @@ Each of these feels like progress and isn't:
 2. **Treat a skill as a workflow.** Follow its steps in order; don't drop the verification step.
 3. **More than one can apply.** A feature often chains several — see the sequence below.
 4. **When unsure on something non-trivial, start with a spec** (`spec-driven-development`).
-5. **Stack/team skills win in their area.** If a task touches Flutter, Supabase, or committing, the matching team skill overrides generic advice.
+5. **Workflow & stack skills win in their area.** If a task touches committing — or an installed stack plugin's domain (e.g. Flutter or Supabase) — the matching skill overrides generic advice.
 
 ## A typical feature, end to end
 
@@ -141,13 +141,19 @@ Not every task needs every step — a bug fix might be just `debugging-and-error
 
 For browser-based runtime checks there is no dedicated skill — drive the running app with the **Chrome DevTools MCP** (rendering, console, network, keyboard order).
 
-## Stack & team skills (this marketplace)
-
-Prefer these over generic advice whenever the task lands in their area — they are authoritative.
+## Commit workflow (core)
 
 | Area | Skill | Use when |
 |---|---|---|
-| Commit / push | commit-pipeline | Committing and pushing — Conventional Commits, `Jira:` footer, **no AI trailer**. Authoritative; overrides any generic git advice. |
+| Commit / push | commit-pipeline | Committing and pushing — Conventional Commits + gitmoji, optional tracker footer, **no AI trailer**. Authoritative; overrides any generic git advice. |
+
+## Stack skills (optional `flutter-supabase` plugin)
+
+These ship in a separate, optional plugin. If it is installed and the task lands in their area,
+they are authoritative over generic advice; if it is not installed, ignore them.
+
+| Area | Skill | Use when |
+|---|---|---|
 | Flutter data | flutter-data-model | Creating or editing models — `@JsonSerializable` + build_runner; never hand-write `fromJson`. |
 | Flutter UI | flutter-mvvm | Building screens — BaseViewModel + MixinBasePage MVVM. |
 | Supabase / DB | supabase-security-review | Auditing RLS, views, triggers, or edge functions before commit. |

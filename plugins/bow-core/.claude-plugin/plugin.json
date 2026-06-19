@@ -1,7 +1,7 @@
 {
   "name": "bow-core",
-  "version": "2.2.0",
-  "description": "Engineering skills covering the full spec→ship lifecycle (spec, planning, TDD, debugging, review, simplification, security, performance, observability, shipping, docs, migration, CI/CD, and more), plus the team's commit pipeline and Flutter/Supabase conventions. Includes review/security/test/perf subagents.",
+  "version": "3.0.0",
+  "description": "Project-agnostic engineering skills covering the full spec→ship lifecycle (spec, planning, TDD, debugging, review, simplification, security, performance, observability, shipping, docs, migration, CI/CD, API design, and the commit workflow). Includes review/security/test/perf subagents. Works on any codebase.",
   "author": {
     "name": "BOW Skills"
   },

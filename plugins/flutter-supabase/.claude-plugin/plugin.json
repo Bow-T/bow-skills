@@ -1,0 +1,12 @@
+{
+  "name": "flutter-supabase",
+  "version": "1.0.0",
+  "description": "Optional stack conventions for Flutter + Supabase apps: generated data models (@JsonSerializable + build_runner), the BaseViewModel + MixinBasePage MVVM pattern, and a pre-commit Supabase security review (RLS / views / triggers / edge functions). Layer on top of bow-core when you work on a Flutter/Supabase codebase.",
+  "author": {
+    "name": "BOW Skills"
+  },
+  "homepage": "https://github.com/Bow-T/bow-skills",
+  "repository": "https://github.com/Bow-T/bow-skills",
+  "license": "MIT",
+  "skills": "./skills"
+}

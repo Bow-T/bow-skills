@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "bow-skills",
-  "description": "Company-wide Claude Code skills. A single 'bow-core' plugin covering the spec→ship development lifecycle plus the team's commit pipeline, Flutter MVVM, and Supabase conventions.",
+  "description": "An open marketplace of engineering skills for Claude Code. Install 'bow-core' for the project-agnostic spec→ship lifecycle (planning, TDD, review, security, performance, shipping, and more); add stack plugins like 'flutter-supabase' when they fit your project.",
   "owner": {
     "name": "BOW Skills",
     "url": "https://github.com/Bow-T/bow-skills"
@@ -10,10 +10,18 @@
     {
       "name": "bow-core",
       "source": "./plugins/bow-core",
-      "description": "Engineering skills across the full spec→ship lifecycle (spec, planning, TDD, debugging, review, simplification, security, performance, observability, shipping, docs, migration, CI/CD), plus the team commit pipeline and Flutter/Supabase conventions. Includes review/security/test/perf subagents.",
+      "description": "Project-agnostic engineering skills across the full spec→ship lifecycle: spec, planning, TDD, debugging, review, simplification, security, performance, observability, shipping, docs, migration, CI/CD, API design, and the commit workflow. Includes review/security/test/perf subagents. Works on any codebase.",
       "homepage": "https://github.com/Bow-T/bow-skills",
       "license": "MIT",
-      "keywords": ["skills", "spec", "tdd", "debug", "review", "security", "performance", "lifecycle", "flutter", "supabase", "commit", "mvvm"]
+      "keywords": ["skills", "spec", "planning", "tdd", "debug", "review", "security", "performance", "observability", "ci-cd", "lifecycle", "commit"]
+    },
+    {
+      "name": "flutter-supabase",
+      "source": "./plugins/flutter-supabase",
+      "description": "Optional stack conventions for Flutter + Supabase apps: generated data models, the BaseViewModel + MixinBasePage MVVM pattern, and a pre-commit Supabase security review. Layer on top of bow-core for Flutter/Supabase projects.",
+      "homepage": "https://github.com/Bow-T/bow-skills",
+      "license": "MIT",
+      "keywords": ["flutter", "dart", "supabase", "mvvm", "rls", "stack"]
     }
   ]
 }
