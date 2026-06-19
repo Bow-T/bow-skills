@@ -38,9 +38,9 @@ cd <appDir> && fvm flutter analyze # zero errors AND zero warnings required
 > If anything exits non-zero, STOP, extract the finding (file:line), fix, re-stage, re-run.
 > Do not commit around it. (Deep RLS/CORS review → the `supabase-security-review` skill.)
 
-## 3. Compose the commit message (Conventional Commits)
+## 3. Compose the commit message (Conventional Commits + gitmoji)
 ```text
-type(scope): Imperative capitalized subject — match the Jira task or a clear summary
+type(scope): <emoji> Imperative capitalized subject — match the Jira task or a clear summary
 
 Body explaining WHY the change was made (not just what) — the engineering decision,
 the structural/behaviour change. One commit = one logical concern.
@@ -50,10 +50,16 @@ Jira: ABC-123
 Rules (these are what `commitlint` checks — get them exact):
 - **Type**: **lowercase** Conventional-Commits prefix — `feat|fix|refactor|perf|test|docs|chore|style|ci|build|revert`. Pick from the actual diff: new feature/screen/API → `feat`; runtime bug/crash → `fix`; behaviour-preserving cleanup → `refactor`. Don't relabel a chore as `feat` to look bigger. Avoid `style`.
 - **Scope**: optional, `kebab-case`, in parentheses — e.g. `fix(notifications): …`.
-- **Subject**: imperative and capitalized (`Add`, `Fix` — not `Added`/`Adding`), 10–72 chars including the header, no trailing period.
+- **Gitmoji**: exactly one icon **right after the colon**, before the subject — never before `type` (that would break the `^(feat|fix|…)` parse). Pick by the change's intent (map below). e.g. `fix(notifications): 🌐 Localize push templates per recipient locale`.
+- **Subject**: imperative and capitalized (`Add`, `Fix` — not `Added`/`Adding`), 10–72 chars including the header **and the emoji**, no trailing period.
 - **Body**: a blank line then ≥ 1 line explaining WHY. For non-trivial changes, ≥ 3 lines.
 - **Footer**: `Jira: <jiraKey>-<num>` (from the branch/ticket).
 - **NO AI-authorship trailer.** Do NOT append `Co-Authored-By: Claude/Copilot/Cursor/Gemini/…`, a `Generated with …` line, or any agent marker. Commit as the human author only. (`commitlint`'s `no-ai-coauthor` rule blocks these.)
+
+**Gitmoji map** (https://gitmoji.dev) — *intent wins over the type default*:
+- Type default: `feat` ✨ · `fix` 🐛 · `refactor` ♻️ · `perf` ⚡️ · `test` ✅ · `docs` 📝 · `chore` 🔧 · `style` 🎨 · `revert` ⏪️ · `ci` 👷 · `build` 📦️
+- Intent override (when the change is mainly this): l10n/i18n 🌐 · security/RLS/secrets 🔒️ · DB schema / migration 🗃️ · remove dead code/files 🔥 · upgrade deps ⬆️ · config files 🔧 · critical hotfix 🚑️ · UI/cosmetic only 💄
+> Type says "what kind of commit"; the emoji says "what it touched". A `fix` that localizes copy → `fix(...): 🌐 …` (intent beats the 🐛 default).
 
 ## 4. Commit & push
 Write the message to a temp file then commit (avoids shell-escaping issues):
