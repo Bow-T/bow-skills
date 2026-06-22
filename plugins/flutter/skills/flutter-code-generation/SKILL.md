@@ -45,11 +45,11 @@ Every codegen setup is the same shape:
 
 ```yaml
 dependencies:
-  freezed_annotation: ^2.4.0
+  freezed_annotation: ^3.0.0
   json_annotation: ^4.9.0
 dev_dependencies:
   build_runner: ^2.4.0
-  freezed: ^2.5.0
+  freezed: ^3.0.0
   json_serializable: ^6.8.0
 ```
 
@@ -69,7 +69,7 @@ part 'user.freezed.dart';
 part 'user.g.dart';
 
 @freezed
-class User with _$User {
+abstract class User with _$User {
   const factory User({
     required String id,
     @JsonKey(name: 'display_name') required String displayName,
@@ -86,6 +86,9 @@ Rules that prevent 90% of red squiggles:
   class has a `fromJson` (json_serializable) — freezed alone does not need it.
 - The `with _$User` mixin and `_$UserFromJson` come from generated code, so they
   error until you run build_runner once. That is expected, not a bug.
+- freezed 3.x requires `abstract class` for single-variant data classes and
+  `sealed class` for union types; `map()`/`when()` are gone — use Dart pattern
+  matching. (freezed 2.x used a bare `class`.)
 - Reference the generated file by the SOURCE file's name. `user.dart` → `user.g.dart`,
   never `users.g.dart`.
 
@@ -121,7 +124,7 @@ targets:
     builders:
       json_serializable:
         options:
-          # snake_case API → camelCase Dart, without @JsonKey on every field
+          # maps camelCase Dart fields to snake_case JSON keys, without @JsonKey on every field
           field_rename: snake
           # smaller, faster generated code; fail loudly on bad JSON shape
           explicit_to_json: true

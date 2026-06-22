@@ -146,6 +146,6 @@ A limiter without client discipline creates a feedback loop: 429 -> immediate re
 
 ## Related
 
-- See [[edge-function-patterns]] for running the limiter at the edge.
-- See [[observability-and-logging]] for the throttle metrics and alerts above.
+- See your edge-function conventions for running the limiter at the edge.
+- See [[observability-and-instrumentation]] for the throttle metrics and alerts above.
 - Commits for limiter changes follow [[commit-pipeline]].

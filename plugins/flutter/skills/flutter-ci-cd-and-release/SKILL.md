@@ -69,7 +69,7 @@ semantic version in `pubspec.yaml`. The format is `name+number` — e.g. `1.4.2+
 ```yaml
 # 1.4.2 stays human-owned in pubspec; the +build comes from CI
 - run: |
-    VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //' | cut -d'+' -f1)
+    VERSION=$(grep '^version:' pubspec.yaml | sed -E 's/version:[[:space:]]*//' | cut -d'+' -f1 | tr -d '[:space:]')
     flutter build appbundle --build-name=$VERSION --build-number=${{ github.run_number }}
 ```
 
@@ -115,6 +115,9 @@ and is read through a non-committed properties file.
 **Android** — base64 the keystore into a secret, restore it, and point Gradle at a generated
 `key.properties` (which must be in `.gitignore`):
 
+Run this on the Linux/Ubuntu job that builds Android — the `base64 -d` decode flag is GNU; on a
+macOS runner it would be `base64 -D`.
+
 ```yaml
 - run: echo "${{ secrets.KEYSTORE_B64 }}" | base64 -d > android/app/upload.jks
 - run: |
@@ -145,9 +148,10 @@ lane :beta do
 end
 ```
 
-Drive the Flutter build before fastlane uploads: `flutter build ipa --export-options-plist=...`,
-or let `build_app` invoke the archive. Keep `MATCH_PASSWORD` and the App Store Connect API key
-(`.p8`) in secrets, never on disk after the job.
+Pick one archive path, not both: either let fastlane `build_app` archive the Runner scheme (as
+above), or drive `flutter build ipa --export-options-plist=...` yourself and have fastlane only
+upload — running both double-archives and the export options can conflict. Keep `MATCH_PASSWORD`
+and the App Store Connect API key (`.p8`) in secrets, never on disk after the job.
 
 ## Distribute by branch, not by hand
 

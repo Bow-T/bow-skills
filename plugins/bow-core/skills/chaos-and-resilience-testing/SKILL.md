@@ -123,7 +123,7 @@ it("returns 503 fast, not a 30s hang, when DB is unreachable", async () => {
 - Add the cheap, deterministic faults (interceptor, DB-unreachable) to the regular test suite so resilience does not rot.
 - Keep destructive/network experiments behind an explicit flag and run on a schedule, never on every push.
 - After fixing a discovered failure, add a test and commit it per [[commit-pipeline]].
-- For deciding which user-facing degradation is acceptable, defer to [[error-handling-and-observability]] if present.
+- For deciding which user-facing degradation is acceptable, defer to [[error-handling-and-exception-design]] if present.
 
 ## Definition of done
 

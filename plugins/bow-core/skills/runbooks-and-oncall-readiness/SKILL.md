@@ -145,7 +145,7 @@ A stale runbook is worse than none — it sends the on-call down a dead path wit
 ## 8. Commit & deliver
 
 Land runbooks in version control alongside the service, reviewed like code.
-Follow [[commit-pipeline]] for commit message format. Related: [[observability-and-instrumentation]] for the signals your alerts depend on, and [[incident-postmortems]] for turning incidents back into runbook entries.
+Follow [[commit-pipeline]] for commit message format. Related: [[observability-and-instrumentation]] for the signals your alerts depend on, and [[incident-response-and-postmortems]] for turning incidents back into runbook entries.
 
 ---
 

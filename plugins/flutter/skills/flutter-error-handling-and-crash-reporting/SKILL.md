@@ -38,7 +38,9 @@ Future<void> main() async {
 
     // Engine-level async errors. Return true = handled.
     PlatformDispatcher.instance.onError = (error, stack) {
-      Reporter.recordError(error, stack, fatal: true);
+      // fatal should reflect whether the app actually terminated; most
+      // async/zone errors are non-fatal (the app keeps running).
+      Reporter.recordError(error, stack, fatal: false);
       return true;
     };
 
@@ -47,7 +49,7 @@ Future<void> main() async {
     runApp(const App());
   }, (error, stack) {
     // Zone fallback: timers, unawaited futures, stream errors.
-    Reporter.recordError(error, stack, fatal: true);
+    Reporter.recordError(error, stack, fatal: false);
   });
 }
 ```
@@ -102,8 +104,13 @@ A throwing `build()` paints the gray error screen across the whole app. Override
 void setupErrorWidget() {
   ErrorWidget.builder = (FlutterErrorDetails details) {
     if (kReleaseMode) {
-      return const Material(
-        child: Center(child: Text('Something went wrong')),
+      // Provide Directionality: the error may occur above MaterialApp,
+      // and Text asserts without an ambient text direction.
+      return const Directionality(
+        textDirection: TextDirection.ltr,
+        child: Material(
+          child: Center(child: Text('Something went wrong')),
+        ),
       );
     }
     return ErrorWidget(details.exception); // verbose in debug
@@ -154,7 +161,7 @@ A stack trace alone rarely reproduces a bug. Attach a trail of what happened bef
 ```dart
 class BreadcrumbNavObserver extends NavigatorObserver {
   @override
-  void didPush(Route route, Route? previous) {
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     Reporter.addBreadcrumb('nav', 'push ${route.settings.name}');
   }
 }

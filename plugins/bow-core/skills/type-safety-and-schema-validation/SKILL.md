@@ -165,5 +165,5 @@ const toEmail = (s: string): Email => EmailSchema.parse(s) as Email;
 - Expected failures return a typed Result; only bugs throw.
 - No `any`/`as`/`dynamic` leaks survive across a boundary.
 
-Related: [[octopus-model]] for the data-layer modeling conventions, and
+Related: [[data-modeling-and-schema-design]] for the data-layer modeling conventions, and
 [[commit-pipeline]] for committing these changes (Conventional Commits + gitmoji).

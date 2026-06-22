@@ -119,7 +119,7 @@ LLM bills move on four dials — pull them in this order:
    multiply cost. Cap loop iterations and log token spend per loop.
 
 For exact model ids, current prices, and caching mechanics, defer to the
-**[[claude-api]]** skill — never hardcode prices from memory; pin them in one
+**the Claude API documentation** skill — never hardcode prices from memory; pin them in one
 table and reference it.
 
 Red flag: a single agent run with no iteration cap. One bad loop can outspend a

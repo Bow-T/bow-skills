@@ -112,5 +112,5 @@ create table invoices (
 
 ## Related
 
-- [[octopus-model]] — keep `timestamptz`, `date`, currency code, and minor-unit columns typed correctly at the data layer.
+- [[data-modeling-and-schema-design]] — keep `timestamptz`, `date`, currency code, and minor-unit columns typed correctly at the data layer.
 - [[commit-pipeline]] — for committing these fixes (Conventional Commits + gitmoji).

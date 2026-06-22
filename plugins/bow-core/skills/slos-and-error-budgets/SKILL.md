@@ -136,5 +136,5 @@ An SLA is an external promise with consequences (refunds, credits). An SLO is yo
 ## Related
 
 - [[incident-response-and-postmortems]] — what to do when the budget burns fast.
-- [[observability-and-structured-logging]] — the telemetry your SLIs depend on.
+- [[observability-and-instrumentation]] — the telemetry your SLIs depend on.
 - [[commit-pipeline]] — for committing SLO definitions and policy changes.

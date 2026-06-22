@@ -123,7 +123,8 @@ StatefulShellRoute.indexedStack(
   ],
 );
 
-// In the nav bar, switch branch without losing its stack:
+// In the nav bar, switch branch without losing its stack;
+// re-tapping the active tab pops that branch back to its root:
 onTap: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
 ```
 
@@ -170,6 +171,6 @@ PopScope(
 - For regressions, write widget tests that pump `MaterialApp.router` and assert
   `find.byType(...)` after `router.go(...)`; assert redirect outcomes with a fake auth state.
 - See [[test-driven-development]] for driving route logic from tests,
-  [[deep-linking-and-app-links]] for platform link config if present, and
-  [[flutter-mvvm]] when navigation is triggered from view-model state. Commit per
+  [[flutter-push-notifications-and-deep-linking]] for platform link config, and
+  your view-model / state layer when navigation is triggered from app state. Commit per
   [[commit-pipeline]].

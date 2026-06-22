@@ -21,7 +21,9 @@ Answer these before adding a dependency:
   filter/sort, relations) → a real database. Pick by query style:
   - **Relational, SQL-first, type-safe, reactive streams** → **Drift** (codegen, compiles
     SQL at build time, runs on a background isolate).
-  - **NoSQL, fast, links between objects, full-text search** → **Isar**.
+  - **NoSQL, fast, links between objects, full-text search** → **Isar** (note:
+    `isar` 3.x is effectively unmaintained and 4.0 is still preview — prefer the
+    actively maintained Drift/sqflite unless you specifically need Isar's model).
   - **Simple boxes of objects, minimal ceremony, no complex queries** → **Hive**.
   - **Raw SQL, you control everything, tiny footprint** → **sqflite**.
 
@@ -104,7 +106,8 @@ StreamBuilder<List<Todo>>(
 ```
 
 Open the file on a background isolate so large queries never jank the UI thread —
-use `driftDatabase(name: ...)` (drift's native connection) or `NativeDatabase.createInBackground`.
+use `driftDatabase(name: ...)` (the `drift_flutter` convenience opener, which defaults
+to a background isolate) or the lower-level `NativeDatabase.createInBackground`.
 
 ## 4. Migrations are the hard part — plan them up front
 
@@ -121,7 +124,14 @@ MigrationStrategy get migration => MigrationStrategy(
         }
         if (from < 3) {
           // Destructive change → migrate data explicitly, don't drop blindly.
-          await m.alterTable(TableMigration(todos));
+          // Pass columnTransformer/newColumns so existing rows are remapped,
+          // not silently re-created with identity transforms.
+          await m.alterTable(TableMigration(
+            todos,
+            columnTransformer: {
+              todos.title: todos.title.trim(),
+            },
+          ));
         }
       },
     );
@@ -180,5 +190,5 @@ final draft = box.get('current');
 - **Test write→read→migrate paths**, not just reads ([[test-driven-development]]). Commit
   generated `*.g.dart` and migration fixtures together via [[commit-pipeline]].
 
-Tie the chosen store back to your models with [[flutter-data-model]] so the same typed
-objects serialize to disk and to the network.
+Tie the chosen store back to your model / data layer so the same typed objects
+serialize to disk and to the network.

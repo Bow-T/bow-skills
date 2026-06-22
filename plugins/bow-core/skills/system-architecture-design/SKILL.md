@@ -161,7 +161,7 @@ through every layer — before fanning out into full implementation.
 
 ## Related
 
-- [[database-schema-design]] — turn the data-ownership map into concrete tables.
-- [[api-contract-design]] — formalize the boundary interfaces from step 4.
-- [[octopus-model]] — data-layer conventions once boundaries are set.
+- [[data-modeling-and-schema-design]] — turn the data-ownership map into concrete tables.
+- [[api-and-interface-design]] — formalize the boundary interfaces from step 4.
+- [[data-modeling-and-schema-design]] — data-layer conventions once boundaries are set.
 - Commit the ADR and scaffolding per [[commit-pipeline]].

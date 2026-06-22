@@ -144,4 +144,4 @@ Before approving a diff that touches logs:
 
 ---
 
-When committing log changes, follow [[commit-pipeline]]. For redaction tied to data-model fields, see [[octopus-model]] for which columns are sensitive.
+When committing log changes, follow [[commit-pipeline]]. For redaction tied to data-model fields, see [[data-modeling-and-schema-design]] for which columns are sensitive.

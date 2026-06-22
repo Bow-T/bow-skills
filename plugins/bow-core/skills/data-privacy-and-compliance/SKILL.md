@@ -158,4 +158,4 @@ Suspected breach → contain, assess scope from the data map (whose data, which 
 - [ ] Consent captured for any new purpose.
 - [ ] Retention job covers new data.
 
-See [[octopus-model]] for shaping the data layer these rules sit on. Commit per [[commit-pipeline]].
+See [[data-modeling-and-schema-design]] for shaping the data layer these rules sit on. Commit per [[commit-pipeline]].

@@ -206,6 +206,6 @@ Resilience you never tested is decoration. Prove each path:
 
 ## Related
 
-- [[error-handling]] for how to model and surface failures to callers.
-- [[observability-and-logging]] for emitting retry/breaker metrics so you can tune thresholds.
+- [[error-handling-and-exception-design]] for how to model and surface failures to callers.
+- [[observability-and-instrumentation]] for emitting retry/breaker metrics so you can tune thresholds.
 - [[commit-pipeline]] when committing these changes.

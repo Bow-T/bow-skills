@@ -51,6 +51,8 @@ void main() {
 }
 ```
 
+(`SocketException` above comes from `dart:io` — import it where you throw platform exceptions.)
+
 Prefer a hand-written **fake** over a mock when you need real behavior (an in-memory
 store, a `StreamController`). Mocks assert *how* code is called; fakes let it run.
 Don't mock value objects or the class under test.
@@ -80,13 +82,14 @@ Finder rules that prevent brittle tests:
 
 - Prefer `find.byKey` and `find.bySemanticsLabel` over `find.text` for anything
   user-visible — text changes with copy and localization.
-- Use `find.byType` for structure, `find.descendant`/`matching` to disambiguate.
+- Use `find.byType` for structure, `find.descendant(of:, matching:)` to disambiguate.
 - A finder matching zero or many widgets fails the test; assert with `findsNothing`,
   `findsOneWidget`, `findsNWidgets(n)` rather than indexing.
 
 For entering text use `tester.enterText`; for scrolling use `tester.drag` or
 `tester.scrollUntilVisible`. Set screen size with
-`tester.view.physicalSize = const Size(1080, 1920)` and reset it in `addTearDown`.
+`tester.view.physicalSize = const Size(1080, 1920)` and reset it in `addTearDown`
+with `tester.view.resetPhysicalSize()` (also `resetDevicePixelRatio()` if you changed it).
 
 ## Step 4 — Tame async and time
 
@@ -129,7 +132,8 @@ Keep goldens to a few high-value, stable components, not every screen.
   `test/flutter_test_config.dart` via `testExecutable`.
 - Reset global state between tests in `setUp`/`tearDown`; a leaked singleton makes
   tests pass or fail depending on order.
-- `SharedPreferences.setMockInitialValues({})`, `HttpOverrides.runZoned`, and
+- `SharedPreferences.setMockInitialValues({})`, `HttpOverrides.runZoned` (newer SDKs
+  expose `HttpOverrides.runWithHttpOverrides`/`runZonedWithHttpOverrides`), and
   `tester.binding.defaultBinaryMessenger.setMockMethodCallHandler` stub platform deps
   so no test touches the network, disk, or a real plugin channel.
 - A test that passes on its first run proves nothing — make it fail first (break the

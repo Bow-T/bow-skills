@@ -67,7 +67,7 @@ type Order = { id: string; total: number; coupon?: string };
 type Order = { id: string; total: number; currency: string /* new */ };
 ```
 
-For Supabase, a migration that drops/renames a column or changes a type that another service or edge function reads is a MAJOR to *that contract* even if your app code adapts. Additive nullable columns are MINOR. See [[octopus-model]] for the data-layer conventions that define what "the schema contract" is.
+For Supabase, a migration that drops/renames a column or changes a type that another service or edge function reads is a MAJOR to *that contract* even if your app code adapts. Additive nullable columns are MINOR. See [[data-modeling-and-schema-design]] for the data-layer conventions that define what "the schema contract" is.
 
 ## 2. Build the changelog from the merge history
 

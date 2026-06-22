@@ -13,13 +13,16 @@ Build a release artifact with the size analyzer enabled. The flag emits a JSON b
 
 ```bash
 # Android App Bundle (what Play Store actually ships)
+# --target-platform pins ONE ABI so you measure a single device slice;
+# drop it to build (and ship) the full multi-ABI bundle.
 flutter build appbundle --release --analyze-size --target-platform android-arm64
 
 # iOS
 flutter build ipa --release --analyze-size
 
-# Open the breakdown in DevTools
-dart devtools --appSizeBase=~/.flutter-devtools/apk-code-size-analysis_01.json
+# Open the breakdown in DevTools (the JSON path is printed at the end of the build;
+# the filename matches the build target, e.g. app-code-size-analysis_NN.json)
+dart devtools --appSizeBase=~/.flutter-devtools/app-code-size-analysis_01.json
 ```
 
 Read the artifact, **not** the APK on disk. A universal APK lies — users download a per-ABI split. For Android, the Play Console "Download size" under App bundle explorer is the truth. For iOS, App Store Connect's App Thinning report gives the per-device size.
@@ -39,7 +42,7 @@ flutter build apk --release --split-per-abi
 # -> app-armeabi-v7a-release.apk, app-arm64-v8a-release.apk, app-x86_64-release.apk
 ```
 
-If you must distribute a single APK, drop 32-bit unless you genuinely support old devices: `--target-platform android-arm64`. iOS only ships thinned slices via TestFlight/App Store — local `.app` size is meaningless.
+If you must distribute a single APK, drop 32-bit unless you genuinely support old devices: `--target-platform android-arm64`. (For an *app bundle*, never pin a single ABI for a shipping build — ship the full multi-ABI bundle and let Play thin per device; pin an ABI only when measuring one slice.) iOS only ships thinned slices via TestFlight/App Store — local `.app` size is meaningless.
 
 ## 3. Tree-shake icons and dead Dart
 
@@ -79,7 +82,7 @@ Declare the component in `pubspec.yaml` and `android/app/src/main/AndroidManifes
 ```bash
 flutter build appbundle --release
 # Verify split:
-bundletool build-apks --bundle=app-release.aab --output=app.apks
+bundletool build-apks --bundle=build/app/outputs/bundle/release/app-release.aab --output=app.apks
 ```
 
 Deferred loading is async and can fail (no network) — always wrap `loadLibrary()` in try/catch and show a retry. See [[resilience-and-fault-tolerance]] for the retry/timeout shape.
@@ -139,8 +142,9 @@ Store `build/symbols` as a build artifact (the store, your crash backend). Witho
 Run the same `--analyze-size` command from step 1 and diff against the baseline. Add a CI guard so the binary can't silently regrow — fail the pipeline if `arm64` download size exceeds a threshold. Wire this into [[ci-cd-and-automation]].
 
 ```bash
-# Crude regression gate: fail if the AAB grows past the budget
-SIZE=$(stat -f%z build/app/outputs/bundle/release/app-release.aab)
+# Crude regression gate: fail if the AAB grows past the budget.
+# `wc -c` is portable (BSD `stat -f%z` and GNU `stat -c%s` differ across OSes).
+SIZE=$(wc -c < build/app/outputs/bundle/release/app-release.aab)
 [ "$SIZE" -lt 26214400 ] || { echo "AAB over 25MB budget"; exit 1; }
 ```
 

@@ -90,7 +90,7 @@ ONLY the JSON" repeated three times (the model already ignored it once).
 
 - **Ground it.** Inject the source text and forbid outside knowledge. Require citations
   by id: "Every claim must end with `[doc_id]`." Unciteable claims become visible.
-- **Separate retrieval from generation.** If a [[octopus-model]]-style data layer or a
+- **Separate retrieval from generation.** If a [[data-modeling-and-schema-design]]-style data layer or a
   Supabase query feeds the prompt, fetch first, then pass only verified rows — don't ask
   the model to recall facts it was never given.
 - **Lower temperature** for extraction/classification (0–0.3). High temperature is for

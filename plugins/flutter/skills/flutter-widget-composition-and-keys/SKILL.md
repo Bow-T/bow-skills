@@ -28,8 +28,8 @@ reason to `extends Container` or subclass a framework widget. Wrap instead.
 ```dart
 // Avoid: subclassing to "add a feature".
 // Prefer: wrap and pass children through.
-class Card extends StatelessWidget {
-  const Card({super.key, required this.child, this.onTap});
+class _AppCard extends StatelessWidget {
+  const _AppCard({super.key, required this.child, this.onTap});
   final Widget child;
   final VoidCallback? onTap;
 
@@ -38,6 +38,7 @@ class Card extends StatelessWidget {
     return Material(
       color: Theme.of(context).colorScheme.surface,
       borderRadius: BorderRadius.circular(12),
+      clipBehavior: Clip.antiAlias, // clip child + ink splash to the rounded corners.
       child: InkWell(onTap: onTap, child: Padding(
         padding: const EdgeInsets.all(16), child: child,
       )),
@@ -47,8 +48,8 @@ class Card extends StatelessWidget {
 ```
 
 Take a `Widget child` (or `List<Widget> children`) and let callers inject content. This is
-how `Padding`, `Center`, and `InkWell` themselves work. See [[flutter-mvvm]] for how
-composed widgets bind to view models.
+how `Padding`, `Center`, and `InkWell` themselves work. Let your view-model / state layer
+inject the content these composed widgets render.
 
 ## Extract a widget, not a helper method
 
@@ -122,10 +123,10 @@ Choosing the key type:
   (an id, a slug). Most list keys are `ValueKey(model.id)`. Never key on the list index;
   index is just position and defeats the purpose.
 - **`ObjectKey(model)`** — when identity is the object instance itself and it has no clean
-  scalar id. Uses `identical`/`==` on the object.
+  scalar id. Matches by `identical(value, other.value)` — object identity, not structural `==`.
 - **`UniqueKey()`** — forces a **reset every build** (the key is never equal to itself next
   frame). Use to intentionally tear down and rebuild a subtree (e.g. restart an animation).
-  Do not put it on list items — it destroys reuse and wrecreates state every frame.
+  Do not put it on list items — it destroys reuse and recreates state every frame.
 - **`PageStorageKey`** — preserve scroll position of a list across navigation/tab switches.
 - **`GlobalKey`** — see below; rarely the right answer.
 

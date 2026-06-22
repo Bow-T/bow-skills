@@ -33,12 +33,19 @@ Future<void> initMessaging() async {
   final settings = await FirebaseMessaging.instance.requestPermission(
     alert: true, badge: true, sound: true,
   );
-  if (settings.authorizationStatus == AuthorizationStatus.denied) return;
+  final status = settings.authorizationStatus;
+  // Proceed only when granted; notDetermined/denied must not register a token.
+  if (status != AuthorizationStatus.authorized &&
+      status != AuthorizationStatus.provisional) {
+    return;
+  }
 
   // 2. iOS: ensure the APNs token exists before asking for the FCM token.
   if (Platform.isIOS) {
     final apns = await FirebaseMessaging.instance.getAPNSToken();
-    if (apns == null) return; // simulator or not-yet-provisioned; retry later
+    // Simulator or not-yet-provisioned. On a real device it can be null for a
+    // short window after the grant — poll getAPNSToken() with backoff, don't drop it.
+    if (apns == null) return;
   }
 
   // 3. Register the device token with your backend, and refresh on rotation.
@@ -133,7 +140,9 @@ class PendingIntents {
 ```
 
 Normalize a notification payload into the *same* `Uri` shape as a link, so both paths share routing
-logic. A push with `{"route": "/orders/42"}` becomes `Uri.parse('myapp:///orders/42')`.
+logic. A push with `{"route": "/orders/42"}` becomes `Uri.parse('myapp:///orders/42')` — the triple
+slash leaves the host empty so `uri.path` is `/orders/42`. (`myapp://orders/42` would make
+`orders` the host and leave `uri.path` empty, silently breaking the section 7 routing.)
 
 ## 6. Capture links with app_links
 
@@ -175,7 +184,7 @@ class _RootState extends State<Root> {
 
   void _go(Uri uri) {
     if (!_isAllowed(uri)) return;            // validate before navigating
-    router.go('${uri.path}?${uri.query}');
+    router.go(uri.hasQuery ? '${uri.path}?${uri.query}' : uri.path);
   }
 
   @override
@@ -209,7 +218,7 @@ On iOS, test on a real device: APNs tokens and universal links do not work in th
 
 ## Related
 
-- [[flutter-mvvm]] — where the router lives and how view-models consume the navigation event.
+- [[flutter-navigation-and-routing]] — where the router lives and how your view-model / state layer consumes the navigation event.
 - [[authn-authz-design]] — gating deep links to protected routes and resuming after login.
 - [[security-and-hardening]] — treating links/payloads as untrusted, avoiding open redirects.
 - [[observability-and-instrumentation]] — logging token registration and delivery/tap funnels.

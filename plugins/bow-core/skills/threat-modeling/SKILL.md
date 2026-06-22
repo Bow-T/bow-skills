@@ -64,7 +64,7 @@ Each mitigation becomes a ticket or a test, not a paragraph nobody reads. A thre
 ## Stack-specific traps
 
 **Supabase / Postgres — the row that escapes its owner.**
-The default failure mode is a table with RLS disabled or a policy that checks nothing. Enable RLS on every table holding user data and write the policy as part of the same migration. See [[octopus-model]] for the data-layer conventions this fits into.
+The default failure mode is a table with RLS disabled or a policy that checks nothing. Enable RLS on every table holding user data and write the policy as part of the same migration. See [[data-modeling-and-schema-design]] for the data-layer conventions this fits into.
 
 ```sql
 -- THREAT: any authenticated user reads every row (information disclosure + cross-tenant).

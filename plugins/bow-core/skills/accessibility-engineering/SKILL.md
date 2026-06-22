@@ -152,4 +152,4 @@ Red flag: green automated suite treated as proof of accessibility. It only prove
 - [ ] Contrast and reduced-motion verified.
 - [ ] One real screen-reader pass completed; automated check wired into CI.
 
-See also: [[component-architecture]] for building the reusable accessible primitives, and [[design-system-tokens]] for contrast-safe color tokens.
+See also: [[design-system-and-component-library]] for building the reusable accessible primitives, and [[design-system-and-component-library]] for contrast-safe color tokens.

@@ -68,7 +68,7 @@ GridView.builder(
 );
 ```
 
-Cap line length on wide screens with `ConstrainedBox(maxWidth: 720)` centered — full-bleed body text on a desktop is a readability bug, not a feature.
+Cap line length on wide screens with a centered `ConstrainedBox(constraints: BoxConstraints(maxWidth: 720))` (wrap it in `Center`/`Align`, or it just left-aligns within the parent) — full-bleed body text on a desktop is a readability bug, not a feature.
 
 ## Adaptive navigation — the canonical responsive scaffold
 
@@ -153,12 +153,12 @@ Desktop/web add pointer, hover, keyboard, and right-click. Adapt interaction, no
 
 ## Foldables and hinges
 
-Use the `display_features` from `MediaQuery` to avoid placing content under a hinge, or adopt a dual-screen package that exposes `TwoPane`. Treat an unfolded inner screen as `expanded` tier and route to the two-pane layout automatically.
+Use `MediaQuery.displayFeaturesOf(context)` to avoid placing content under a hinge — this is the durable primitive, and most modern foldables report a normal hinge fold through it. A dual-screen package exposing `TwoPane` is an option, but the original `dual_screen` package is Surface-Duo-era and largely unmaintained, so prefer `displayFeatures` directly. Treat an unfolded inner screen as `expanded` tier and route to the two-pane layout automatically.
 
 ## Verify across the matrix
 
 - Resize a desktop/web window live and watch for overflow stripes — do not test only at fixed sizes.
-- `flutter run` with device preview / DevTools device toolbar; toggle text scale, rotation, and locale (RTL via [[internationalization-and-localization]]).
+- `flutter run` with the `device_preview` package or DevTools' media-query / platform overrides; toggle text scale, rotation, and locale (RTL via [[internationalization-and-localization]]).
 - Add golden tests at representative widths (e.g. 360, 768, 1280) so reflow regressions fail CI.
 - Watch for the classic crashes: unbounded height in a `Column` inside a scroll view, `Expanded` outside a flex parent, and `Row` overflow on narrow widths — fix with `Flexible`/`Wrap`, not by hardcoding sizes.
 

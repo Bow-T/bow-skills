@@ -118,7 +118,7 @@ Re-estimate when: a spike resolves, scope changes, or an assumption breaks. When
 
 ## Cross-links
 
-- Slicing work and writing the ticket: [[task-breakdown]]
-- Sizing data-layer leaves (tables, RLS, migrations): [[octopus-model]]
-- Spinning up reproducible spikes: [[spike-and-prototype]]
+- Slicing work and writing the ticket: [[planning-and-task-breakdown]]
+- Sizing data-layer leaves (tables, RLS, migrations): [[data-modeling-and-schema-design]]
+- Spinning up reproducible spikes: a timeboxed spike
 - Committing the result follows [[commit-pipeline]] (Conventional Commits + gitmoji).

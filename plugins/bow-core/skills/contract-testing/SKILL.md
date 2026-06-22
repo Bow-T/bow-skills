@@ -123,4 +123,4 @@ Safe in one step: adding optional response fields, adding new endpoints, looseni
 ## Related
 
 - [[commit-pipeline]] for committing contract artifacts and verification config (Conventional Commits + gitmoji).
-- [[octopus-model]] for the data-layer types your consumer parses into.
+- [[data-modeling-and-schema-design]] for the data-layer types your consumer parses into.

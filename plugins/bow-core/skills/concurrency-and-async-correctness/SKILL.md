@@ -139,7 +139,7 @@ In Dart, propagate cancellation via stream subscriptions / `CancelableOperation`
 
 ## Related skills
 
-- [[error-handling-and-resilience]] for retry, timeout, and backoff policy.
-- [[octopus-model]] for placing invariants in the data layer (constraints, conditional writes).
-- [[testing-strategy]] for structuring the stress/interleaving tests above.
+- [[error-handling-and-exception-design]] for retry, timeout, and backoff policy.
+- [[data-modeling-and-schema-design]] for placing invariants in the data layer (constraints, conditional writes).
+- [[test-strategy-and-coverage-design]] for structuring the stress/interleaving tests above.
 - When committing, follow [[commit-pipeline]].

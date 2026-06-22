@@ -84,7 +84,7 @@ Never rename a live column in one migration while old app builds are still in us
 Refactoring means external behavior is identical by definition. Prove it:
 - Tests pass without modification. If you had to change a test's *assertions* (not just imports/names), you changed behavior — that's not a refactor anymore.
 - Diff the public surface where possible: compare generated TS types (`generate_typescript_types`) before/after a data-layer move; they should match.
-- For risky moves, run the app against the real path — see [[verify]].
+- For risky moves, run the app against the real path — see runtime verification.
 
 ## 6. Make the diff reviewable
 
@@ -106,5 +106,5 @@ A 4,000-line refactor PR gets rubber-stamped, which defeats the safety net.
 ## See also
 
 - [[commit-pipeline]] — slicing the work into Conventional Commits.
-- [[octopus-model]] — when the refactor reshapes the Supabase data layer.
-- [[verify]] — confirming behavior held on risky moves.
+- [[data-modeling-and-schema-design]] — when the refactor reshapes the Supabase data layer.
+- runtime verification — confirming behavior held on risky moves.

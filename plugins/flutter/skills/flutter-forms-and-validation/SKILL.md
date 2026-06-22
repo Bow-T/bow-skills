@@ -44,11 +44,11 @@ Rule: if a `State` field is a controller, focus node, or `AnimationController`, 
 Keep validators as plain functions returning `String?` (null = valid). Pure functions are testable without pumping a widget.
 
 ```dart
-String? required(String? v) =>
+String? notEmpty(String? v) =>
     (v == null || v.trim().isEmpty) ? 'Required' : null;
 
 String? email(String? v) {
-  if (v == null || v.isEmpty) return null; // let `required` own emptiness
+  if (v == null || v.isEmpty) return null; // let `notEmpty` own emptiness
   final ok = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(v);
   return ok ? null : 'Enter a valid email';
 }
@@ -63,13 +63,13 @@ TextFormField(
   controller: _email,
   keyboardType: TextInputType.emailAddress,
   autovalidateMode: AutovalidateMode.onUserInteraction,
-  validator: all([required, email]),
+  validator: all([notEmpty, email]),
   textInputAction: TextInputAction.next,
   onFieldSubmitted: (_) => _passwordFocus.requestFocus(),
 )
 ```
 
-`AutovalidateMode.onUserInteraction` is the right default: silent until the user touches the field, then live. Avoid `always` (errors scream on a pristine form) and the implicit-default behavior of validating only on submit unless that is genuinely what you want.
+`AutovalidateMode.onUserInteraction` is the right default: silent until the user touches the field, then live. Avoid `always` (errors scream on a pristine form), and note that the default `AutovalidateMode.disabled` validates only when you call `validate()` (e.g. on submit) — fine if that is genuinely what you want.
 
 ## Submission flow
 
@@ -83,7 +83,7 @@ Future<void> _submit() async {
   setState(() => _submitting = true);
   try {
     await widget.onSignIn(_email.text.trim(), _password.text);
-  } on AuthException catch (e) {
+  } on AuthException catch (e) { // example: your backend SDK's exception type
     if (mounted) setState(() => _serverError = e.message);
   } finally {
     if (mounted) setState(() => _submitting = false);
@@ -136,7 +136,7 @@ class CheckoutModel extends ChangeNotifier {
 }
 ```
 
-The submit button binds to `canSubmit`; confirm field shows `confirmError`. This also makes server-side field errors trivial: map the API's `{field: message}` into the model and feed each into the right `errorText`. See [[flutter-mvvm]] for wiring view-models into pages.
+The submit button binds to `canSubmit`; confirm field shows `confirmError`. This also makes server-side field errors trivial: map the API's `{field: message}` into the model and feed each into the right `errorText`. Wire this model into your view-model / state layer rather than into widget state.
 
 ## Input shaping and accessibility
 

@@ -52,25 +52,29 @@ class AppConfig {
 }
 ```
 
-Guard against a misbuilt binary at startup rather than silently hitting an empty host:
+Guard against a misbuilt binary at startup rather than silently hitting an empty host.
+Use a runtime throw, not `assert` — asserts are stripped in release/profile builds, which
+is precisely where a misconfigured `API_BASE_URL` would otherwise fail silently:
 
 ```dart
 void main() {
-  assert(
-    AppConfig.apiBaseUrl.isNotEmpty,
-    'API_BASE_URL is unset — pass --dart-define-from-file=config/dev.json',
-  );
+  if (AppConfig.apiBaseUrl.isEmpty) {
+    throw StateError(
+      'API_BASE_URL is unset — pass --dart-define-from-file=config/dev.json',
+    );
+  }
   runApp(const MyApp());
 }
 ```
 
-Only `int`, `bool`, `String`, and (recent SDKs) `double` have `fromEnvironment`. For a
+Only `int`, `bool`, `String`, and (Dart 2.19 / Flutter 3.7+) `double` have `fromEnvironment`. For a
 list or map, pass JSON in one string and `jsonDecode` it once at boot.
 
 ## dart-define-from-file: one file per flavor
 
 Long `--dart-define` chains rot. Put each flavor's values in a JSON (or `.env`) file and
-pass the whole file:
+pass the whole file (the `// path` label below is a doc marker only — `--dart-define-from-file`
+parses strict JSON, so the file itself must contain no comments):
 
 ```json
 // config/staging.json

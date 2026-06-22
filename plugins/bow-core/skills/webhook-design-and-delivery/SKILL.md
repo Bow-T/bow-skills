@@ -157,5 +157,5 @@ Webhooks arrive out of order. Never assume `created` precedes `updated`.
 
 ## Related
 
-- Data-layer modeling for the outbox/inbox tables: see [[octopus-model]].
+- Data-layer modeling for the outbox/inbox tables: see [[data-modeling-and-schema-design]].
 - Committing this work: follow [[commit-pipeline]].

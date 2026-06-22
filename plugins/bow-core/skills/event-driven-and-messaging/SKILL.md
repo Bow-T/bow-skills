@@ -164,6 +164,6 @@ You cannot debug what you cannot trace.
 
 ## Related
 
-- [[octopus-model]] for the data-layer shapes events read from and write to.
+- [[data-modeling-and-schema-design]] for the data-layer shapes events read from and write to.
 
 When committing any of this, follow [[commit-pipeline]] for message format.
