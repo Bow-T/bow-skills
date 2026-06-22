@@ -43,19 +43,25 @@ When a task matches one of these, follow that workflow. In Claude Code the full 
 | Skill | Plugin | Use when |
 |---|---|---|
 | `accessibility-engineering` | bow-core | Triggers when building or remediating UI that must meet WCAG — keyboard navigation, ARIA semantics, focus management, color contrast, or screen-reader support. |
+| `agent-tool-design` | bow-core | Triggers when defining tools/functions an LLM agent can call — naming, parameter schemas, descriptions, return shapes, error surfaces, and guardrails so the model invokes them reliably. |
 | `ai-generated-code-review` | bow-core | Trigger when reviewing or merging code an AI/agent produced — hunting for hallucinated APIs, subtle correctness gaps, security holes, and unjustified complexity. |
+| `analytics-and-product-instrumentation` | bow-core | Triggers when adding product analytics/event tracking — naming taxonomy, event schema, consent gating, identity stitching, and avoiding double-counting or PII leakage in events. |
 | `api-and-interface-design` | bow-core | Designs interfaces that stay stable and resist misuse. |
+| `api-pagination-and-bulk-access` | bow-core | Triggers when exposing list endpoints at scale — choosing cursor vs offset pagination, designing bulk/batch reads and writes, streaming large result sets, and stable ordering under concurrent writes. |
 | `api-versioning-and-evolution` | bow-core | Trigger when evolving a published API — adding fields, choosing a versioning strategy, deprecating endpoints, or keeping old clients alive through a breaking change. |
 | `authn-authz-design` | bow-core | Designs who-you-are and what-you-can-do correctly — triggers when implementing login, sessions/tokens (JWT/OAuth/OIDC), refresh flows, RBAC/ABAC permission models, multi-tenant isolation, or fixing an authorization gap or privilege-escalation risk. |
 | `background-jobs-and-queues` | bow-core | Trigger when offloading work to async jobs — designing a queue/worker, scheduling, retries, dead-letter handling, visibility timeouts, or preventing job pileups. |
 | `backup-and-disaster-recovery` | bow-core | Triggers when defining backup policy, setting RPO/RTO targets, testing restores, planning failover or replication, or preparing for region loss and data-corruption events. |
 | `caching-strategy` | bow-core | Triggers when adding a cache layer, choosing TTL vs event-based invalidation, debugging stale data, designing cache keys, or hardening against stampede/thundering-herd under load. |
+| `capacity-cost-tradeoff-and-rightsizing` | bow-core | Triggers when tuning resource allocation against spend — rightsizing compute/storage, autoscaling policies, spot/reserved choices, and load-vs-cost tradeoffs for a given SLO. |
 | `chaos-and-resilience-testing` | bow-core | Trigger when proactively validating failure handling — injecting faults, killing dependencies, simulating latency or partitions, or running a game day. |
 | `ci-cd-and-automation` | bow-core | Sets up and maintains automated build, test, and deploy pipelines. |
+| `code-migration-and-language-upgrades` | bow-core | Triggers when upgrading a runtime/framework/language version or porting between them — assessing breaking changes, codemods, incremental cutover, and dual-running old and new. |
 | `code-review-and-quality` | bow-core | Reviews a change across correctness, readability, architecture, security, and performance before it merges. |
 | `code-simplification` | bow-core | Make working code clearer without changing what it does. |
 | `commit-pipeline` | bow-core | Commit and push changes following the team commit convention — optional staged safety scan (RLS/CORS/secrets), static analysis, a Conventional-Commit message with a Jira footer and NO AI-authorship trailer, then push. |
 | `concurrency-and-async-correctness` | bow-core | Trigger when sharing mutable state across threads/tasks, using locks/async-await/futures/isolates, debugging race conditions or deadlocks, ordering side effects, or reasoning about atomicity and memory visibility. |
+| `containerization-and-orchestration` | bow-core | Triggers when packaging services into containers and running them — lean Dockerfiles, multi-stage builds, image hardening, Kubernetes/compose manifests, resource limits, and health probes. |
 | `context-engineering` | bow-core | Curates what an agent sees so its output stays accurate. |
 | `contract-testing` | bow-core | Triggers when independently deployed services integrate, an API change might break a consumer, you set up consumer-driven contracts, or mocks have drifted from real provider behavior. |
 | `cost-and-finops-optimization` | bow-core | Trigger when cloud, infra, or LLM spend spikes or needs forecasting — attribute cost, right-size, kill waste, and add guardrails. |
@@ -67,26 +73,40 @@ When a task matches one of these, follow that workflow. In Claude Code the full 
 | `debugging-and-error-recovery` | bow-core | Find and fix the root cause systematically across the whole stack — Flutter app, Supabase (CHECK/FK/trigger/RLS), edge functions, and browser. |
 | `dependency-and-supply-chain` | bow-core | Use when adding or upgrading a library, auditing for CVEs or license conflicts, pinning and locking versions, deciding whether to adopt a dependency, or responding to a supply-chain advisory. |
 | `deprecation-and-migration` | bow-core | Retires old code and moves users onto its replacement safely. |
+| `design-system-and-component-library` | bow-core | Triggers when building or extending a shared UI component library — tokens, theming, variants/composition APIs, documentation, versioning, and preventing one-off divergence. |
 | `documentation-and-adrs` | bow-core | Captures the reasoning behind technical work so future readers can rebuild context. |
 | `doubt-driven-development` | bow-core | Cross-examines every non-trivial decision with a fresh-context adversarial reviewer before it stands. |
+| `email-and-notification-delivery` | bow-core | Triggers when sending transactional email/SMS/push — deliverability (SPF/DKIM/DMARC), templating, user preferences, rate/throttle, bounce handling, and avoiding spam classification. |
+| `error-handling-and-exception-design` | bow-core | Triggers when deciding how code reports and propagates failure — error types vs exceptions vs result types, what to wrap/retry/swallow, user-facing messages, and consistent error taxonomies. |
 | `estimation-and-scoping` | bow-core | Trigger when asked how long something will take, sizing a task or epic, or breaking unknowns into estimable pieces with explicit uncertainty. |
 | `event-driven-and-messaging` | bow-core | Triggers when introducing a broker, choosing pub/sub vs queues, handling at-least-once delivery, ordering/partitioning, dead-letters, or moving sync calls to async events. |
+| `experimentation-and-ab-testing` | bow-core | Triggers when running an experiment to decide a change — hypothesis, metric and guardrail selection, sample-size/power, assignment, and reading results without p-hacking. |
 | `feature-flags-and-progressive-delivery` | bow-core | Trigger when decoupling deploy from release — shipping behind flags, running canary or percentage rollouts, A/B experiments, kill-switches for risky features, or managing flag lifecycle and cleanup. |
+| `file-upload-and-media-handling` | bow-core | Triggers when accepting user file/image/video uploads — validation, size/type limits, virus scanning, presigned URLs, storage layout, transcoding, and serving via CDN. |
 | `frontend-ui-engineering` | bow-core | Builds production-grade user interfaces — accessible, responsive, and visually polished. |
+| `full-text-and-vector-search-infrastructure` | bow-core | Triggers when standing up search infra itself — indexing pipelines, analyzers/tokenizers, sharding, freshness-vs-cost trade-offs, and operating Elasticsearch/OpenSearch/pgvector in production. |
+| `git-workflow-and-branching` | bow-core | Triggers when establishing or untangling version-control practice — branching model, rebase vs merge, conflict resolution, recovering lost work, bisecting, and history hygiene. |
 | `idea-refine` | bow-core | Turns a fuzzy idea into a sharp, buildable concept by first widening the option space, then narrowing it under honest scrutiny. |
 | `idempotency-and-exactly-once` | bow-core | Trigger when an operation must survive retries — payments, webhook handlers, message consumers, or any write that at-least-once delivery or client retries could duplicate. |
 | `incident-response-and-postmortems` | bow-core | Use when production is down or degraded, when coordinating a live response, declaring severity and comms, or writing a blameless postmortem with corrective actions. |
 | `incremental-implementation` | bow-core | Delivers changes in small, verified steps instead of one big drop. |
+| `infrastructure-as-code` | bow-core | Triggers when provisioning cloud resources declaratively — writing/structuring Terraform/Pulumi/CDK, managing state, modules, drift detection, and safe plan/apply workflows. |
 | `internationalization-and-localization` | bow-core | Triggers when externalizing UI strings, handling plurals/gender/RTL, formatting dates/numbers/currency per locale, fixing Unicode handling, or building a translation pipeline. |
 | `interview-me` | bow-core | Pulls out the real goal behind a request rather than the request itself, by running a one-question-at-a-time interview until you can predict the user's answers. |
 | `large-scale-refactoring` | bow-core | Restructures code across many files without breaking it — touching dozens of call sites, splitting/merging modules, introducing a cross-cutting abstraction, or a repo-wide rename/move. |
 | `llm-evaluation-and-testing` | bow-core | Trigger when measuring LLM or agent output quality — building eval sets, LLM-as-judge graders, prompt regression suites, or catching quality drift before shipping a model or prompt change. |
 | `load-and-stress-testing` | bow-core | Trigger when establishing a performance baseline, finding a breaking point, verifying autoscaling, running soak/spike/stress tests, or proving a capacity assumption with measurement instead of a guess. |
+| `local-dev-environment-and-onboarding` | bow-core | Triggers when setting up reproducible local development — one-command setup, seed data, service stubs, prod parity, and shrinking new-engineer time-to-first-commit. |
 | `logging-hygiene` | bow-core | Trigger when adding, reviewing, or cleaning up log statements — picking levels, structuring fields, blocking PII/secret leakage, and controlling log volume and cost. |
+| `machine-learning-model-serving` | bow-core | Triggers when deploying a trained model to production — packaging, batching, GPU/CPU sizing, versioning, shadow/canary, latency budgets, and monitoring drift and inputs. |
+| `memory-and-resource-leak-diagnosis` | bow-core | Triggers when a process grows unbounded or exhausts resources — heap/leak profiling, GC tuning, file-descriptor and connection-pool exhaustion, and OOM-kill investigation. |
+| `ml-data-and-feature-pipelines` | bow-core | Triggers when preparing data for training or inference — feature engineering, train/serve skew, leakage prevention, labeling, dataset versioning, and reproducible training data. |
 | `mobile-release-and-app-store` | bow-core | Trigger when shipping a mobile app — store submission, phased rollout, forced/optional update gates, crash monitoring, and recovering from an un-recallable release. |
 | `monorepo-management` | bow-core | Trigger when structuring a multi-package repo — workspace layout, shared deps, affected-only builds/tests, codeowners, and cross-package versioning. |
 | `multi-tenancy-design` | bow-core | Trigger when building software that serves multiple customers/orgs — tenant isolation, data partitioning, per-tenant config/limits, and noisy-neighbor prevention. |
+| `networking-and-tls-fundamentals` | bow-core | Triggers when debugging or designing connectivity — DNS, TLS/mTLS, certificates and rotation, proxies/load balancers, timeouts, keep-alive, and diagnosing latency or connection-reset failures. |
 | `observability-and-instrumentation` | bow-core | Builds the telemetry that lets you operate a system in production. |
+| `payments-and-billing-integration` | bow-core | Triggers when integrating payments or subscriptions — idempotent charges, PSP webhooks, proration, dunning, tax, refunds, reconciliation, and PCI scope minimization. |
 | `performance-optimization` | bow-core | Finds and fixes real performance problems through measurement. |
 | `planning-and-task-breakdown` | bow-core | Turn an approved spec or clear requirements into a small, ordered list of verifiable tasks before writing code. |
 | `prompt-design-and-engineering` | bow-core | Trigger when writing, refactoring, or debugging an LLM prompt — system prompts, few-shot examples, output formatting, or reducing hallucination and refusals. |
@@ -104,13 +124,17 @@ When a task matches one of these, follow that workflow. In Claude Code the full 
 | `slos-and-error-budgets` | bow-core | Use when defining SLIs/SLOs, choosing reliability targets to promise, computing or burning error budgets, trading features against stability, or negotiating SLAs. |
 | `source-driven-development` | bow-core | Backs every framework-specific decision with current official documentation and a citation. |
 | `spec-driven-development` | bow-core | Write an agreed specification, linked to a tracker ticket, before any implementation. |
+| `state-management-and-data-flow` | bow-core | Triggers when structuring client-side or app state — choosing local vs global state, normalizing stores, optimistic updates, cache sync, and avoiding prop-drilling or stale-state bugs. |
+| `streaming-and-realtime-systems` | bow-core | Triggers when delivering live updates — WebSockets/SSE/long-poll choice, presence, backpressure, reconnection, fan-out scaling, and ordering/dedup for realtime channels. |
 | `system-architecture-design` | bow-core | Triggers when shaping a new service or major subsystem before building components — choosing monolith vs microservices vs serverless, defining component boundaries and data flow, or weighing architectural trade-offs against requirements. |
 | `technical-debt-management` | bow-core | Triggers when the team is slowing down, when proposing cleanup, when weighing a shortcut against its future cost, or when ranking refactors against features. |
 | `test-driven-development` | bow-core | Let tests drive the code — write the failing test first (Flutter *_test.dart, TS *.spec.ts), then the implementation. |
+| `test-strategy-and-coverage-design` | bow-core | Triggers when deciding what and how to test — shaping the test pyramid, drawing unit/integration/e2e boundaries, choosing what to mock, triaging flaky tests, and setting coverage targets that mean something. |
 | `threat-modeling` | bow-core | Triggers when designing a new system, feature, or trust boundary; handling sensitive data; preparing a security-sensitive launch; or asked what could go wrong adversarially. |
 | `type-safety-and-schema-validation` | bow-core | Trigger when validating data at a boundary — parsing untrusted input, defining a shared schema, adding runtime validation (Zod/Pydantic/JSON Schema), or hunting down any/unknown leaks. |
 | `using-agent-skills` | bow-core | Picks the right skill for the task at hand. |
 | `webhook-design-and-delivery` | bow-core | Trigger when sending or receiving webhooks — signing/verification, retries, ordering, replay protection, and giving consumers a reliable event contract. |
+| `webhook-receiving-and-verification` | bow-core | Triggers when consuming inbound webhooks from third parties — signature verification, replay protection, ordering, retries, idempotent handling, and fast-ack-then-process patterns. |
 | `zero-downtime-database-migrations` | bow-core | Trigger when changing a production schema under live traffic — adding/dropping columns, backfills, renames, or index builds without locks or downtime. |
 | `flutter-data-model` | flutter-supabase | Write Flutter data models and parsing the project way — every model is a @JsonSerializable class with a part '*.g.dart' file and _$FromJson/_$ToJson, dates/ints/enums go through the shared Utilities converters and @JsonValue enums, and build_runner regenerates the .g.dart. |
 | `flutter-mvvm` | flutter-supabase | Build or edit Flutter UI and pages in apps/mobile using the Flutter MVVM architecture — the BaseViewModel + MixinBasePage page+view-model pattern (ChangeState state machine, lifecycle hooks, optimistic updates), reusing existing components, the app theme/spacing/localization, and typed models (never raw maps) in widgets. |
