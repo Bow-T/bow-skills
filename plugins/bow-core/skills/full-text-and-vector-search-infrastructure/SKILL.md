@@ -5,6 +5,8 @@ description: Triggers when standing up search infra itself — indexing pipeline
 
 # Full-Text and Vector Search Infrastructure
 
+> Scope: the indexing/serving **plumbing** and ops. For query **relevance/ranking** quality, see [[search-and-relevance-engineering]].
+
 You are building or operating the search *plumbing*, not the query UX. The job is to
 turn a source of truth into a queryable index that stays fresh, correct, and affordable
 under load. Relevance tuning and ranking live in [[search-and-relevance-engineering]];

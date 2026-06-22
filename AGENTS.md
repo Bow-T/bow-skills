@@ -129,7 +129,7 @@ When a task matches one of these, follow that workflow. In Claude Code the full 
 | `threat-modeling` | bow-core | Triggers when designing a new system, feature, or trust boundary; handling sensitive data; preparing a security-sensitive launch; or asked what could go wrong adversarially. |
 | `type-safety-and-schema-validation` | bow-core | Trigger when validating data at a boundary — parsing untrusted input, defining a shared schema, adding runtime validation (Zod/Pydantic/JSON Schema), or hunting down any/unknown leaks. |
 | `using-agent-skills` | bow-core | Picks the right skill for the task at hand. |
-| `webhook-design-and-delivery` | bow-core | Trigger when sending or receiving webhooks — signing/verification, retries, ordering, replay protection, and giving consumers a reliable event contract. |
+| `webhook-design-and-delivery` | bow-core | Trigger when you are the provider sending/delivering webhooks to consumers — event contract, signing, retries, ordering, and replay protection. |
 | `webhook-receiving-and-verification` | bow-core | Triggers when consuming inbound webhooks from third parties — signature verification, replay protection, ordering, retries, idempotent handling, and fast-ack-then-process patterns. |
 | `zero-downtime-database-migrations` | bow-core | Trigger when changing a production schema under live traffic — adding/dropping columns, backfills, renames, or index builds without locks or downtime. |
 | `flutter-data-model` | flutter-supabase | Write Flutter data models and parsing the project way — every model is a @JsonSerializable class with a part '*.g.dart' file and _$FromJson/_$ToJson, dates/ints/enums go through the shared Utilities converters and @JsonValue enums, and build_runner regenerates the .g.dart. |

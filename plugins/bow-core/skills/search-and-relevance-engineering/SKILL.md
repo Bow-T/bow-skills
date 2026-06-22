@@ -5,6 +5,8 @@ description: Trigger when building or tuning search — indexing, analyzers, ran
 
 # Search & Relevance Engineering
 
+> Scope: query **recall + ranking/relevance**. For the indexing/serving **plumbing** (clusters, analyzers, sharding, ops), see [[full-text-and-vector-search-infrastructure]].
+
 Search is two problems wearing one trench coat: **recall** (did we retrieve the right docs?) and **precision/ranking** (are the best ones on top?). Solve them in that order. Never tune ranking on a query that returns zero hits.
 
 ## 0. Frame the job before touching an index
