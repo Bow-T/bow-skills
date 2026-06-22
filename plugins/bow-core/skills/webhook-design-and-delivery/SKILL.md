@@ -1,9 +1,11 @@
 ---
 name: webhook-design-and-delivery
-description: Trigger when sending or receiving webhooks — signing/verification, retries, ordering, replay protection, and giving consumers a reliable event contract.
+description: Trigger when you are the provider sending/delivering webhooks to consumers — event contract, signing, retries, ordering, and replay protection. For consuming inbound webhooks, see webhook-receiving-and-verification.
 ---
 
 # Webhook Design and Delivery
+
+> Scope: the **provider / sending** side. For the **consumer / receiving** side, see [[webhook-receiving-and-verification]].
 
 A webhook is a public API your consumers cannot poll for. Treat every event as if it will arrive twice, out of order, hours late, or never. Design for that reality up front.
 

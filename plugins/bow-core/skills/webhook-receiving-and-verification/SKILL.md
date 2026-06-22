@@ -5,6 +5,8 @@ description: Triggers when consuming inbound webhooks from third parties — sig
 
 # Webhook Receiving and Verification
 
+> Scope: the **consumer / receiving** side. For the **provider / sending** side, see [[webhook-design-and-delivery]].
+
 You are accepting events you did not generate, from a sender you do not control, over a
 channel anyone can POST to. Treat every request as hostile until proven otherwise, ack
 fast, and process exactly once. This skill is for the **receiving** side; designing your
