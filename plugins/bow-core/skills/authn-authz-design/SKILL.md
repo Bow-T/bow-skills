@@ -132,7 +132,7 @@ Audit these specifically:
 
 ## Related
 
-- [[secrets-and-config-hygiene]] for key storage and rotation.
-- [[supabase-rls-patterns]] for deeper policy recipes.
-- [[api-contract-design]] for choosing 401 vs 403 vs 404 (prefer 404 to avoid leaking resource existence).
+- [[secrets-and-config-management]] for key storage and rotation.
+- [[supabase-security-review]] for deeper policy recipes.
+- [[api-and-interface-design]] for choosing 401 vs 403 vs 404 (prefer 404 to avoid leaking resource existence).
 - Commit any auth change via [[commit-pipeline]] (Conventional Commits + gitmoji).

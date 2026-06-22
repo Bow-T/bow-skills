@@ -77,7 +77,7 @@ Red flag: zero think time and one endpoint. You measured a microbenchmark, not y
 ## 3. Generate load from where it hurts
 
 - **Network APIs / Supabase / TS edge functions**: `k6`, `vegeta`, or `oha`. Run from a machine with more bandwidth than the target, in the same region, or you measure the internet.
-- **Flutter / Dart clients**: do not drive 1000 emulators. Capture the HTTP/Realtime traffic a real session produces, then replay it at scale against the backend. For client-side render budgets, profile the widget tree separately — that is a different test (see [[flutter-performance-profiling]] if present), not a load test.
+- **Flutter / Dart clients**: do not drive 1000 emulators. Capture the HTTP/Realtime traffic a real session produces, then replay it at scale against the backend. For client-side render budgets, profile the widget tree separately — that is a different test (see [[performance-optimization]] if present), not a load test.
 - **Database directly**: `pgbench` against a Postgres clone to isolate whether the bottleneck is the app or the DB. Always test the DB layer separately at least once; otherwise you cannot attribute the bottleneck.
 
 ## 4. Find the knee, then characterize the failure

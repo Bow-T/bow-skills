@@ -30,8 +30,11 @@ The cardinal sin: a `setState` or provider change at the top of the tree rebuild
 huge subtree. Push state down or lift the static parts out.
 
 ```dart
+// `_controller` is an AnimationController field driven by a
+// `with SingleTickerProviderStateMixin` on the State below.
+
 // BAD: animation rebuilds the entire subtree, including the static heavy child.
-class _Bad extends State<Spinner> {
+class _SpinnerState extends State<Spinner> {
   @override
   Widget build(BuildContext context) {
     return Transform.rotate(
@@ -42,14 +45,19 @@ class _Bad extends State<Spinner> {
 }
 
 // GOOD: AnimatedBuilder rebuilds only the Transform; child is captured once.
-AnimatedBuilder(
-  animation: _controller,
-  child: const ExpensiveChild(), // built once, passed through
-  builder: (context, child) => Transform.rotate(
-    angle: _controller.value * 2 * pi,
-    child: child,
-  ),
-);
+class _SpinnerState extends State<Spinner> {
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      child: const ExpensiveChild(), // built once, passed through
+      builder: (context, child) => Transform.rotate(
+        angle: _controller.value * 2 * pi,
+        child: child,
+      ),
+    );
+  }
+}
 ```
 
 The `child` parameter pattern works for `AnimatedBuilder`, `ValueListenableBuilder`,
@@ -129,6 +137,8 @@ trigger side effects. Common offenders to hoist out of `build`:
   via `compute()` or `Isolate.run()` so the UI thread keeps hitting frames.
 
 ```dart
+// `raw` must be sendable across the isolate boundary (no closures, sockets, or
+// other non-transferable objects), or this throws at runtime.
 final parsed = await Isolate.run(() => parseHugePayload(raw));
 ```
 
@@ -141,9 +151,11 @@ If the **Raster** track is the tall one, the GPU is struggling:
   forces an offscreen `saveLayer`. Same for `ClipRRect` over big animated content.
 - **Shader compilation jank** (a stutter the *first* time an effect appears) is largely
   resolved by Impeller, the default engine on iOS and Android in current Flutter. Verify
-  Impeller is on; if you must stay on the legacy engine, precompile with an SkSL bundle:
-  capture during `flutter run --profile --cache-sksl --purge-persistent-cache`, then
-  ship via `flutter build --bundle-sksl-path`.
+  Impeller is on. The legacy SkSL warm-up path is being retired: `--cache-sksl` and
+  `--bundle-sksl-path` do **not** work with Impeller and error out. Only on the shrinking
+  legacy-Skia case can you precompile with an SkSL bundle: capture during
+  `flutter run --profile --cache-sksl --purge-persistent-cache`, then ship via
+  `flutter build --bundle-sksl-path`. On a modern Impeller project, don't chase this path.
 - Avoid `BackdropFilter`/blur over large or frequently-changing areas — it's expensive
   per frame.
 
@@ -157,5 +169,5 @@ numbers. When committing, follow [[commit-pipeline]].
 ## Related
 
 - [[performance-optimization]] — language-agnostic measure-fix-remeasure discipline.
-- [[flutter-mvvm]] — structuring view-models so state changes don't over-notify.
+- Structure your view-model / state layer so state changes don't over-notify.
 - [[load-and-stress-testing]] — proving capacity assumptions with measurement.

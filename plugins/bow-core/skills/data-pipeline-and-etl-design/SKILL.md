@@ -116,7 +116,7 @@ select payload->>'id'                   as id,
 from raw.events;
 ```
 
-Migrations: do expand → migrate → contract. Ship the additive change, dual-write/backfill, switch reads, then remove the old path in a later release. Defer all git steps to [[commit-pipeline]]; coordinate DB migration files with [[octopus-model]] if data-layer conventions apply.
+Migrations: do expand → migrate → contract. Ship the additive change, dual-write/backfill, switch reads, then remove the old path in a later release. Defer all git steps to [[commit-pipeline]]; coordinate DB migration files with [[data-modeling-and-schema-design]] if data-layer conventions apply.
 
 ## 6. Data quality gates (fail loud, fail early)
 

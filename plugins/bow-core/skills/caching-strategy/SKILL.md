@@ -130,4 +130,4 @@ If you cannot answer "what's the hit ratio for this key family?" you do not have
 
 ---
 
-When persisting cache shape in Postgres (materialized views, trigger-driven busts), follow [[octopus-model]] for the data layer. When committing the change, defer to [[commit-pipeline]] for the message format.
+When persisting cache shape in Postgres (materialized views, trigger-driven busts), follow [[data-modeling-and-schema-design]] for the data layer. When committing the change, defer to [[commit-pipeline]] for the message format.

@@ -63,7 +63,7 @@ const rows = await Promise.all(ids.map((id) => fetchRow(id)));
 Then make it visible:
 - Grep `DEBT(` into a generated report in CI; never hand-maintain a parallel list.
 - For anything with a real due date, open a tracker ticket and put the ID in the marker.
-- See [[jira-issue-management]] for filing and linking debt tickets.
+- See your issue tracker for filing and linking debt tickets.
 
 ## Step 5 — Decide: pay, defer, or accept
 

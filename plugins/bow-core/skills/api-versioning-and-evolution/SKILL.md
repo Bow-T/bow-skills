@@ -126,7 +126,7 @@ alter table orders alter column total_cents set not null;
 -- drop old column only once nothing reads `total`
 ```
 
-See [[octopus-model]] for data-layer modeling conventions that keep these migrations clean.
+See [[data-modeling-and-schema-design]] for data-layer modeling conventions that keep these migrations clean.
 
 ## Step 7 — Lock the contract with tests
 

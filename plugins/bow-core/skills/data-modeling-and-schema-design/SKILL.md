@@ -106,7 +106,7 @@ Schema changes ship before all consumers update. Never break a column out from u
 - After every schema change regenerate the typed client so the application catches drift at compile time:
   - `supabase gen types typescript --linked > src/types/db.ts`
   - In Dart/Flutter, regenerate the generated models/serializers (e.g. `dart run build_runner build --delete-conflicting-outputs`) so the data layer matches.
-- A schema change that does not update generated types is incomplete. See [[octopus-model]] for the data-layer mapping conventions.
+- A schema change that does not update generated types is incomplete. See [[data-modeling-and-schema-design]] for the data-layer mapping conventions.
 
 ## Pre-merge checklist
 

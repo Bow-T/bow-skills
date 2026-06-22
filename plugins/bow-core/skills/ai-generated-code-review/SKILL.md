@@ -91,7 +91,7 @@ const { userId } = await req.json();
 await db.from('profiles').update(patch).eq('id', userId);
 ```
 
-Never wave through a diff that touches auth, RLS, or user input without explicit verification. When in doubt, run [[security-review]].
+Never wave through a diff that touches auth, RLS, or user input without explicit verification. When in doubt, run [[security-and-hardening]].
 
 ## 4. Unjustified complexity
 
@@ -104,13 +104,13 @@ Red flags:
 - Defensive `try/catch` and null checks around values that can't be null here.
 - Comments restating the code line-by-line.
 
-Decision point: for each added file or class, ask "what breaks if I inline/delete this?" If the answer is "nothing," remove it. Prefer the smallest diff that satisfies the task. See [[code-simplicity-and-reuse]] if it exists in this repo for the reuse pass.
+Decision point: for each added file or class, ask "what breaks if I inline/delete this?" If the answer is "nothing," remove it. Prefer the smallest diff that satisfies the task. See [[code-simplification]] if it exists in this repo for the reuse pass.
 
 ## 5. Consistency with the codebase
 
 - Does it match existing naming, folder structure, and state-management patterns?
 - Did it import a *new* HTTP client / date lib / DI approach when the repo already has one?
-- Does Dart code follow the existing model/serialization convention? Cross-check [[octopus-model]] for the data layer.
+- Does Dart code follow the existing model/serialization convention? Cross-check [[data-modeling-and-schema-design]] for the data layer.
 
 A second dependency that duplicates an existing one is a defect, not a style nit.
 

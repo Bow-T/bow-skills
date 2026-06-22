@@ -127,7 +127,7 @@ Honest. Fast rollback = well. No staging parity = hurt.
 - Each item has an owner and a date, tracked like any other work. An item with no owner is a wish.
 - Prefer **prevent > detect > mitigate**. Aim for at least one that makes the class of failure impossible, not just this instance.
 - Cap the list (~5). Ten low-priority items means none get done.
-- Cross-check the cause class — if it's a data-model or query issue, route fixes through [[octopus-model]] conventions; if it's a config/test gap, add the missing check.
+- Cross-check the cause class — if it's a data-model or query issue, route fixes through [[data-modeling-and-schema-design]] conventions; if it's a config/test gap, add the missing check.
 
 **Red flags in postmortems**
 - A person's name as the root cause.

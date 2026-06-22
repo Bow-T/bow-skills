@@ -158,7 +158,7 @@ Add **semantic / vector search** (embeddings + `pgvector` or a vector index) whe
 
 ## Cross-links
 
-- Data modeling and migrations for the source tables: [[octopus-model]].
+- Data modeling and migrations for the source tables: [[data-modeling-and-schema-design]].
 - Committing index migrations and tuning changes: follow [[commit-pipeline]].
 
 ## Definition of done

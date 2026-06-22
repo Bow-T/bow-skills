@@ -132,7 +132,7 @@ A flag at 100% with a passed soak window is a cleanup ticket, not a feature.
 3. Delete the flag row / config entry **last**, after the code referencing it is gone.
 4. Commit per [[commit-pipeline]].
 
-Run a periodic flag audit: list every flag, its age, its last evaluation, and its owner. Anything stale or unowned gets a removal ticket. Cross-link DB-side flag tables and RLS to your data conventions via [[octopus-model]].
+Run a periodic flag audit: list every flag, its age, its last evaluation, and its owner. Anything stale or unowned gets a removal ticket. Cross-link DB-side flag tables and RLS to your data conventions via [[data-modeling-and-schema-design]].
 
 ## Red flags
 

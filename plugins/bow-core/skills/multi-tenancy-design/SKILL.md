@@ -149,5 +149,5 @@ async function allow(tenantId: string, cost = 1): Promise<boolean> {
 
 ## Related
 
-- [[octopus-model]] — data-layer conventions for tenant-scoped tables and repositories.
+- [[data-modeling-and-schema-design]] — data-layer conventions for tenant-scoped tables and repositories.
 - [[commit-pipeline]] — when committing schema/RLS changes (Conventional Commits + gitmoji).

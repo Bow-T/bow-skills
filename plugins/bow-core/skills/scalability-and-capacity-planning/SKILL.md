@@ -163,6 +163,6 @@ A capacity plan is a hypothesis until load-tested at the target number.
 - Define alerts at the planning thresholds: alert at 60% utilization (act), page at 80% (the plan is being consumed faster than forecast).
 - Re-run the forecast quarterly; growth assumptions decay.
 
-Record the model — forecast inputs, knee, node math, validated numbers — alongside the change so the next planner inherits the reasoning. See [[architecture-decision-records]] for capturing the scaling decision and its trade-offs.
+Record the model — forecast inputs, knee, node math, validated numbers — alongside the change so the next planner inherits the reasoning. See [[documentation-and-adrs]] for capturing the scaling decision and its trade-offs.
 
 When committing the plan, infra config, or migration, follow [[commit-pipeline]].

@@ -150,5 +150,5 @@ Pick the window deliberately: retention shorter than the longest client/queue re
 
 ## Related
 
-- [[octopus-model]] — where the dedup tables and constraints live in the data layer.
+- [[data-modeling-and-schema-design]] — where the dedup tables and constraints live in the data layer.
 - [[commit-pipeline]] — for committing this work (Conventional Commits + gitmoji).

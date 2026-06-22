@@ -154,7 +154,7 @@ ALTER TABLE orders VALIDATE CONSTRAINT fk_orders_user;    -- only takes SHARE UP
     currency: j['currency'] as String? ?? 'USD', // safe before backfill finishes
   );
   ```
-- Verify the app against both schema states before contracting — see [[verify]].
+- Verify the app against both schema states before contracting — see runtime verification.
 - Never let a Flutter client crash on an unexpected extra column; deserialize by key, not by position.
 
 ## Pre-flight checklist
@@ -171,5 +171,5 @@ ALTER TABLE orders VALIDATE CONSTRAINT fk_orders_user;    -- only takes SHARE UP
 ## Related
 
 - [[commit-pipeline]] — commit each phase separately with Conventional Commits + gitmoji.
-- [[octopus-model]] — keep data-layer models in sync as the schema evolves.
-- [[verify]] — confirm both schema states behave before contracting.
+- [[data-modeling-and-schema-design]] — keep data-layer models in sync as the schema evolves.
+- runtime verification — confirm both schema states behave before contracting.

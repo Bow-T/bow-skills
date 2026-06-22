@@ -21,9 +21,9 @@ A mobile binary is **immutable once downloaded**. You cannot patch a device you 
 - [ ] Release notes written for each store locale.
 - [ ] Crash-free baseline known from the previous version (e.g. 99.7%).
 - [ ] Every new surface sits behind a remote flag, defaulted **off** for the rollout.
-- [ ] Backend changes are deployed and **backward compatible** with the *currently live* app — see [[backend-api-contracts]].
+- [ ] Backend changes are deployed and **backward compatible** with the *currently live* app — see [[api-and-interface-design]].
 - [ ] Force-update floor decided (see Step 4).
-- [ ] Rollback story for any DB migration confirmed (see [[octopus-model]]).
+- [ ] Rollback story for any DB migration confirmed (see [[data-modeling-and-schema-design]]).
 
 Red flag: a migration that drops/renames a column the live app still reads. The old binary keeps running for weeks — never break its contract.
 
@@ -109,7 +109,7 @@ PlatformDispatcher.instance.onError = (e, s) { crashReporter.record(e, s); retur
 
 - Stamp every event with `app_version`, `build_number`, and `flag_set` so you can diff a regression to one release and one flag.
 - Watch in the first 24h: crash-free sessions, ANR/hang rate, error rate per new endpoint, and adoption curve.
-- Set an alert that pages when crash-free drops below baseline on the new version — see [[observability-and-logging]] if present.
+- Set an alert that pages when crash-free drops below baseline on the new version — see [[observability-and-instrumentation]] if present.
 
 ## Step 6 — When it's already out (un-recallable release)
 

@@ -19,7 +19,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  intl: any   # let flutter pub get pin the version it ships
+  intl: ^0.20.2   # match the version Flutter ships; let pub upgrade resolve it for your SDK
 
 flutter:
   generate: true   # turns on gen_l10n
@@ -66,7 +66,9 @@ MaterialApp(
 );
 ```
 
-Read it via context — never cache across rebuilds, since locale can change:
+Read it via context — never cache across rebuilds, since locale can change.
+Import `AppLocalizations` from the generated output (default
+`package:flutter_gen/gen_l10n/app_localizations.dart`, or your configured path):
 
 ```dart
 final l10n = AppLocalizations.of(context);
@@ -128,7 +130,7 @@ MaterialApp(
 
 For a user-chosen language, hoist a `locale` into state (Provider/Riverpod/Bloc)
 and pass it to `MaterialApp(locale: ...)`. Persist the choice; on `null` let the
-OS decide. If you use a state-management skill, see [[flutter-mvvm]].
+OS decide — hold this in your view-model / state layer.
 
 ## RTL and bidi
 
@@ -180,10 +182,17 @@ Format currency by the value's currency, not the UI locale — money in USD stay
 USD symbols even for a French-locale user; only grouping/decimal marks follow locale.
 For relative times ("3 days ago"), use a localized package rather than rolling your own.
 
-Initialize date symbols once at startup if you format before the first frame:
+Initialize date symbols once at startup if you format before the first frame.
+It is async, so await it in an `async main()` after `ensureInitialized()`:
 
 ```dart
-await initializeDateFormatting(); // from package:intl
+import 'package:intl/date_symbol_data_local.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting();
+  runApp(const MyApp());
+}
 ```
 
 ## Pitfalls

@@ -166,5 +166,5 @@ The client never runs the job — it enqueues and observes. Insert via the Supab
 
 ## Related
 
-- [[octopus-model]] for shaping the job/payload data layer.
+- [[data-modeling-and-schema-design]] for shaping the job/payload data layer.
 - Defer all commit and branching conventions to [[commit-pipeline]].

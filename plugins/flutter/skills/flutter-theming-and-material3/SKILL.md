@@ -26,9 +26,10 @@ final darkScheme = ColorScheme.fromSeed(
 );
 ```
 
-`ColorScheme.fromSeed` guarantees WCAG-aware contrast between role pairs
-(`primary`/`onPrimary`, `surface`/`onSurface`, …). Always paint foreground content with
-the matching `on*` role — never assume white text on `primary`.
+`ColorScheme.fromSeed` aims for accessible contrast between role pairs
+(`primary`/`onPrimary`, `surface`/`onSurface`, …) but does not guarantee WCAG AA/AAA for
+every pair — verify with a contrast check, especially container roles. Always paint
+foreground content with the matching `on*` role — never assume white text on `primary`.
 
 If a brand requires exact hex values the seed won't produce, override only those roles:
 
@@ -48,8 +49,9 @@ roles is error-prone.
 ```dart
 ThemeData buildTheme(ColorScheme scheme) => ThemeData(
       useMaterial3: true,
+      // useMaterial3 + colorScheme drive surface tints and component shaping.
       colorScheme: scheme,
-      // Drives default surface tints and ripple shapes from the scheme.
+      // Tightens component spacing per platform; not a color/shape setting.
       visualDensity: VisualDensity.adaptivePlatformDensity,
     );
 
@@ -145,16 +147,21 @@ class AppTokens extends ThemeExtension<AppTokens> {
     if (other is! AppTokens) return this;
     return AppTokens(
       success: Color.lerp(success, other.success, t)!,
-      gap: lerpDouble(gap, other.gap, t)!,
+      gap: gap + (other.gap - gap) * t,
     );
   }
 }
 
 // Register per brightness:
-theme.copyWith(extensions: const [AppTokens(success: Color(0xFF2E7D32), gap: 8)]);
+theme.copyWith(extensions: const [AppTokens(success: Color(0xFF2E7D32), gap: 8.0)]);
 
-// Read it (define an extension getter to keep call sites clean):
-final tokens = Theme.of(context).extension<AppTokens>()!;
+// Define an extension getter to keep call sites clean:
+extension AppTokensX on ThemeData {
+  AppTokens get tokens => extension<AppTokens>()!;
+}
+
+// Read it:
+final tokens = Theme.of(context).tokens;
 Container(color: tokens.success, padding: EdgeInsets.all(tokens.gap));
 ```
 

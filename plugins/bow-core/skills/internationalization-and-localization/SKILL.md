@@ -142,5 +142,5 @@ Treat the source-locale file as the contract: code may only reference keys that 
 
 ## Related
 
-- Persisting translations and timestamps cleanly: see [[octopus-model]] for the data-layer conventions.
+- Persisting translations and timestamps cleanly: see [[data-modeling-and-schema-design]] for the data-layer conventions.
 - Committing extracted strings and locale files: follow [[commit-pipeline]].

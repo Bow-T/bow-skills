@@ -177,5 +177,5 @@ not skip or duplicate rows across pages.
 
 ## Related skills
 
-- [[octopus-model]] — shape the data layer so relations are cheap to fetch.
+- [[data-modeling-and-schema-design]] — shape the data layer so relations are cheap to fetch.
 - [[commit-pipeline]] — commit migrations and query fixes (Conventional Commits + gitmoji).
