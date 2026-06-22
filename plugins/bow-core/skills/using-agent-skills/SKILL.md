@@ -184,8 +184,10 @@ Only when installed; authoritative in their area, otherwise ignore:
 
 ### Optional stack plugin — `flutter-supabase`
 Only when installed; authoritative in their area, otherwise ignore:
+- `flutter-app-conventions` — Follow the app's house UI conventions in apps/mobile — reuse the component library, use AppColor/appStyle/spacing tokens (never raw values), route ass
 - `flutter-data-model` — Write Flutter data models and parsing the project way — every model is a @JsonSerializable class with a part '*.g.dart' file and _$FromJson/_$ToJson,
 - `flutter-mvvm` — Build or edit Flutter UI and pages in apps/mobile using the Flutter MVVM architecture — the BaseViewModel + MixinBasePage page+view-model pattern (Cha
+- `flutter-supabase-queries` — Build the Supabase data-access layer the project way — query/repository singletons resolved via the locator, runGuarded error handling, typed models i
 - `supabase-security-review` — Audit Supabase/backend changes (RLS, views, triggers, edge functions, SQL) for the recurring security issues the AI review gate penalises, before comm
 
 ## Behaviors that apply everywhere

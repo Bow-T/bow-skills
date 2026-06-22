@@ -254,12 +254,14 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 | `flutter-theming-and-material3` | Triggers when defining or refactoring app visual identity — ColorScheme/seed colors, ThemeData and component themes, Material 3 vs Cupertino, dark mod |
 | `flutter-widget-composition-and-keys` | Triggers when building widget trees — composing over inheriting, extracting widgets vs helper methods, lifting state, and choosing/placing Keys (Value |
 
-## `flutter-supabase` — optional stack plugin (3)
+## `flutter-supabase` — optional stack plugin (5)
 
 | Skill | Use when |
 | :-- | :-- |
+| `flutter-app-conventions` | Follow the app's house UI conventions in apps/mobile — reuse the component library, use AppColor/appStyle/spacing tokens (never raw values), route ass |
 | `flutter-data-model` | Write Flutter data models and parsing the project way — every model is a @JsonSerializable class with a part '*.g.dart' file and _$FromJson/_$ToJson, |
 | `flutter-mvvm` | Build or edit Flutter UI and pages in apps/mobile using the Flutter MVVM architecture — the BaseViewModel + MixinBasePage page+view-model pattern (Cha |
+| `flutter-supabase-queries` | Build the Supabase data-access layer the project way — query/repository singletons resolved via the locator, runGuarded error handling, typed models i |
 | `supabase-security-review` | Audit Supabase/backend changes (RLS, views, triggers, edge functions, SQL) for the recurring security issues the AI review gate penalises, before comm |
 
 ---
