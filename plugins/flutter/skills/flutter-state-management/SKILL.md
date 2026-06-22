@@ -49,7 +49,8 @@ final cartProvider = NotifierProvider<CartNotifier, Cart>(CartNotifier.new);
 GoRoute(
   path: '/checkout',
   builder: (_, __) => ProviderScope(
-    overrides: [cartProvider], // fresh instance, auto-disposed on pop
+    // override gives this subtree its own CartNotifier, disposed when the scope leaves the tree
+    overrides: [cartProvider.overrideWith(CartNotifier.new)],
     child: const CheckoutScreen(),
   ),
 );

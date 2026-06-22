@@ -30,7 +30,7 @@ Dio buildDio() {
   dio.interceptors.addAll([
     AuthInterceptor(),
     RetryInterceptor(dio),
-    if (kDebugMode) LogInterceptor(requestBody: true, responseBody: true),
+    if (kDebugMode) RedactingLogInterceptor(), // custom — built-in LogInterceptor leaks auth headers
   ]);
   return dio;
 }
@@ -61,7 +61,7 @@ class AuthInterceptor extends QueuedInterceptor {
 
   @override
   Future<void> onError(DioException e, ErrorInterceptorHandler h) async {
-    if (e.response?.statusCode != 401 || o(e).extra['retried'] == true) {
+    if (e.response?.statusCode != 401 || e.requestOptions.extra['retried'] == true) {
       return h.next(e);
     }
     try {
@@ -82,8 +82,9 @@ class AuthInterceptor extends QueuedInterceptor {
 
 Use `QueuedInterceptor` so requests serialize while the token refreshes. Keep the
 refresh call on a separate `Dio` instance without `AuthInterceptor` to avoid an
-infinite refresh loop. Never log the `Authorization` header — strip it in your
-log interceptor (see [[secrets-and-config-management]]).
+infinite refresh loop. dio's built-in `LogInterceptor` logs full headers including
+`Authorization` — use a custom interceptor that redacts sensitive headers before
+logging (see [[secrets-and-config-management]]).
 
 ## Retries: only on idempotent, transient failures
 
@@ -112,7 +113,7 @@ class RetryInterceptor extends Interceptor {
         + Duration(milliseconds: Random().nextInt(120)); // jitter
     await Future.delayed(delay);
     final opts = e.requestOptions..extra['attempt'] = attempt + 1;
-    try { h.resolve(await dio.fetch(opts)); } catch (err) { h.next(err as DioException); }
+    try { h.resolve(await dio.fetch(opts)); } catch (err) { h.next(err is DioException ? err : e); }
   }
 }
 ```
@@ -193,7 +194,10 @@ switch (await fetchUser(id)) {
 Large JSON payloads block the frame. Move parsing to an isolate with `compute`:
 
 ```dart
-final list = await compute(_parseProducts, response.data as String);
+// Request raw text so dio doesn't JSON-decode on the main thread; decode + map in the isolate.
+final res = await dio.get('/products', options: Options(responseType: ResponseType.plain));
+final list = await compute(_parseProducts, res.data as String);
+
 List<Product> _parseProducts(String body) => (jsonDecode(body) as List)
     .map((e) => Product.fromJson(e as Map<String, dynamic>)).toList();
 ```
