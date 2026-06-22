@@ -7,7 +7,7 @@ description: Picks the right skill for the task at hand. Use at the start of a s
 
 ## What this is
 
-This marketplace bundles **110 project-agnostic skills** (plus an optional `flutter-supabase` stack plugin), each a workflow for one engineering concern. Your first move on any non-trivial task: find the skill that fits, then follow its steps. The catalog below is grouped by area to route you fast.
+This marketplace bundles **110 project-agnostic skills** (plus optional stack plugins: `flutter`, `flutter-supabase`), each a workflow for one engineering concern. Your first move on any non-trivial task: find the skill that fits, then follow its steps. The catalog below is grouped by area to route you fast.
 
 ## Route by category
 
@@ -155,6 +155,32 @@ Find the line closest to what you're doing, open that skill, and follow its step
 
 ### Commit workflow
 - `commit-pipeline` — committing/pushing: Conventional Commits + gitmoji, optional tracker footer, **no AI-authorship trailer**. Authoritative over any generic git advice.
+
+### Optional stack plugin — `flutter`
+Only when installed; authoritative in their area, otherwise ignore:
+- `flutter-accessibility` — Triggers when making a Flutter UI usable by assistive tech — Semantics widgets, labels/hints/merging, focus and traversal order, dynamic text scaling,
+- `flutter-animations` — Triggers when adding motion in Flutter — choosing implicit vs explicit animations, driving AnimationController/Tween/Curves, Hero/shared-element and p
+- `flutter-app-size-optimization` — Triggers when a Flutter binary is too large — measuring with --analyze-size, tree-shaking, deferred components, asset/font/image trimming, split-per-a
+- `flutter-async-and-isolates` — Triggers when handling concurrency — Future/Stream/async-await correctness, cancellation, compute()/Isolate.run for CPU-bound work, avoiding main-isol
+- `flutter-ci-cd-and-release` — Triggers when automating Flutter builds and releases — GitHub Actions/Codemagic/fastlane pipelines, code signing and provisioning, build/test/lint gat
+- `flutter-code-generation` — Triggers when running build_runner codegen — freezed, json_serializable, generated routes/DI — wiring build.yaml, managing part files, and deciding wh
+- `flutter-custom-rendering-and-painting` — Triggers when default widgets can't express the layout or visuals — writing CustomPainter, custom RenderObjects/RenderBox, custom multi-child layout,
+- `flutter-dependency-injection` — Triggers when wiring dependencies — get_it/injectable or Riverpod-as-DI, registration scopes (singleton/factory/lazy), composition roots, and making c
+- `flutter-error-handling-and-crash-reporting` — Triggers when hardening reliability — wiring FlutterError.onError and PlatformDispatcher.onError, runZonedGuarded, error-boundary widgets, user-facing
+- `flutter-flavors-and-environments` — Triggers when separating environments — build flavors/schemes, --dart-define / dart-define-from-file config, per-environment app IDs/icons/endpoints,
+- `flutter-forms-and-validation` — Triggers when building Flutter input — Form/FormField/TextEditingController/FocusNode, sync and async validation, submission and error display, contro
+- `flutter-internationalization` — Triggers when localizing a Flutter app — intl + gen-l10n with ARB files, plural/gender/select messages, locale resolution, RTL/bidi layout, and locale
+- `flutter-local-persistence` — Triggers when choosing or implementing on-device storage in Flutter — picking among Drift/Isar/Hive/sqflite/shared_preferences/secure storage, schema
+- `flutter-navigation-and-routing` — Triggers when wiring navigation — go_router/auto_route setup, declarative vs imperative routing, nested/tab routing, route guards/redirects, typed rou
+- `flutter-networking` — Triggers when building an HTTP/data layer in Flutter/Dart — dio/http clients, interceptors (auth/logging), retries, timeouts, cancellation, typed resp
+- `flutter-performance-and-rebuild-optimization` — Triggers when the UI janks or rebuilds excessively — minimizing rebuild scope, using const/RepaintBoundary, profiling with the DevTools timeline, fixi
+- `flutter-platform-channels-and-ffi` — Triggers when bridging Flutter to native — MethodChannel/EventChannel, Pigeon type-safe channels, dart:ffi for C/C++, and threading platform-side code
+- `flutter-push-notifications-and-deep-linking` — Triggers when wiring messaging or link entry points — FCM/APNs setup, foreground/background/terminated notification handling, local notifications, and
+- `flutter-responsive-and-adaptive-layout` — Triggers when a Flutter UI must adapt across phone/tablet/desktop/web/foldable — breakpoints, LayoutBuilder/MediaQuery, safe areas/insets, adaptive vs
+- `flutter-state-management` — Triggers when choosing or structuring app state — picking Riverpod/Bloc/Provider/signals/setState, scoping providers, separating ephemeral vs app stat
+- `flutter-testing` — Triggers when writing or fixing tests — unit, widget (pumpWidget/finders/pumpAndSettle), golden, and integration_test, plus mocktail/fakes, test setup
+- `flutter-theming-and-material3` — Triggers when defining or refactoring app visual identity — ColorScheme/seed colors, ThemeData and component themes, Material 3 vs Cupertino, dark mod
+- `flutter-widget-composition-and-keys` — Triggers when building widget trees — composing over inheriting, extracting widgets vs helper methods, lifting state, and choosing/placing Keys (Value
 
 ### Optional stack plugin — `flutter-supabase`
 Only when installed; authoritative in their area, otherwise ignore:

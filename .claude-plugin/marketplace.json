@@ -16,6 +16,14 @@
       "keywords": ["skills", "spec", "planning", "tdd", "debug", "review", "security", "performance", "observability", "ci-cd", "lifecycle", "commit"]
     },
     {
+      "name": "flutter",
+      "source": "./plugins/flutter",
+      "description": "Generic Flutter/Dart best-practice skills — state management, navigation, performance, rendering, animations, testing, build flavors, CI/CD, platform channels, accessibility, and i18n. Framework-specific but project-agnostic; pairs with bow-core.",
+      "homepage": "https://github.com/Bow-T/bow-skills",
+      "license": "MIT",
+      "keywords": ["flutter", "dart", "state-management", "performance", "testing", "animations", "widgets"]
+    },
+    {
       "name": "flutter-supabase",
       "source": "./plugins/flutter-supabase",
       "description": "Optional stack conventions for Flutter + Supabase apps: generated data models, the BaseViewModel + MixinBasePage MVVM pattern, and a pre-commit Supabase security review. Layer on top of bow-core for Flutter/Supabase projects.",

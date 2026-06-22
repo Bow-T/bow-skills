@@ -4,7 +4,7 @@
 
 Skills are *workflows the agent activates by context* — not docs you read. Each one declares a trigger; when your task matches, Claude applies that process automatically. Install once and your whole team shares the same working agreement with Claude.
 
-**110 project-agnostic skills** in `bow-core`, plus an optional `flutter-supabase` stack plugin — all original, English, MIT-licensed, and rendered to every major AI assistant.
+**110 project-agnostic skills** in `bow-core`, plus stack plugins (`flutter`, `flutter-supabase`) — all original, English, MIT-licensed, and rendered to every major AI assistant.
 
 ---
 
@@ -13,7 +13,8 @@ Skills are *workflows the agent activates by context* — not docs you read. Eac
 ```bash
 /plugin marketplace add Bow-T/bow-skills
 /plugin install bow-core@bow-skills
-# optional, for Flutter + Supabase projects:
+# optional stack plugins:
+/plugin install flutter@bow-skills
 /plugin install flutter-supabase@bow-skills
 ```
 
@@ -225,6 +226,34 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 
 ---
 
+## `flutter` — optional stack plugin (23)
+
+| Skill | Use when |
+| :-- | :-- |
+| `flutter-accessibility` | Triggers when making a Flutter UI usable by assistive tech — Semantics widgets, labels/hints/merging, focus and traversal order, dynamic text scaling, |
+| `flutter-animations` | Triggers when adding motion in Flutter — choosing implicit vs explicit animations, driving AnimationController/Tween/Curves, Hero/shared-element and p |
+| `flutter-app-size-optimization` | Triggers when a Flutter binary is too large — measuring with --analyze-size, tree-shaking, deferred components, asset/font/image trimming, split-per-a |
+| `flutter-async-and-isolates` | Triggers when handling concurrency — Future/Stream/async-await correctness, cancellation, compute()/Isolate.run for CPU-bound work, avoiding main-isol |
+| `flutter-ci-cd-and-release` | Triggers when automating Flutter builds and releases — GitHub Actions/Codemagic/fastlane pipelines, code signing and provisioning, build/test/lint gat |
+| `flutter-code-generation` | Triggers when running build_runner codegen — freezed, json_serializable, generated routes/DI — wiring build.yaml, managing part files, and deciding wh |
+| `flutter-custom-rendering-and-painting` | Triggers when default widgets can't express the layout or visuals — writing CustomPainter, custom RenderObjects/RenderBox, custom multi-child layout, |
+| `flutter-dependency-injection` | Triggers when wiring dependencies — get_it/injectable or Riverpod-as-DI, registration scopes (singleton/factory/lazy), composition roots, and making c |
+| `flutter-error-handling-and-crash-reporting` | Triggers when hardening reliability — wiring FlutterError.onError and PlatformDispatcher.onError, runZonedGuarded, error-boundary widgets, user-facing |
+| `flutter-flavors-and-environments` | Triggers when separating environments — build flavors/schemes, --dart-define / dart-define-from-file config, per-environment app IDs/icons/endpoints, |
+| `flutter-forms-and-validation` | Triggers when building Flutter input — Form/FormField/TextEditingController/FocusNode, sync and async validation, submission and error display, contro |
+| `flutter-internationalization` | Triggers when localizing a Flutter app — intl + gen-l10n with ARB files, plural/gender/select messages, locale resolution, RTL/bidi layout, and locale |
+| `flutter-local-persistence` | Triggers when choosing or implementing on-device storage in Flutter — picking among Drift/Isar/Hive/sqflite/shared_preferences/secure storage, schema |
+| `flutter-navigation-and-routing` | Triggers when wiring navigation — go_router/auto_route setup, declarative vs imperative routing, nested/tab routing, route guards/redirects, typed rou |
+| `flutter-networking` | Triggers when building an HTTP/data layer in Flutter/Dart — dio/http clients, interceptors (auth/logging), retries, timeouts, cancellation, typed resp |
+| `flutter-performance-and-rebuild-optimization` | Triggers when the UI janks or rebuilds excessively — minimizing rebuild scope, using const/RepaintBoundary, profiling with the DevTools timeline, fixi |
+| `flutter-platform-channels-and-ffi` | Triggers when bridging Flutter to native — MethodChannel/EventChannel, Pigeon type-safe channels, dart:ffi for C/C++, and threading platform-side code |
+| `flutter-push-notifications-and-deep-linking` | Triggers when wiring messaging or link entry points — FCM/APNs setup, foreground/background/terminated notification handling, local notifications, and |
+| `flutter-responsive-and-adaptive-layout` | Triggers when a Flutter UI must adapt across phone/tablet/desktop/web/foldable — breakpoints, LayoutBuilder/MediaQuery, safe areas/insets, adaptive vs |
+| `flutter-state-management` | Triggers when choosing or structuring app state — picking Riverpod/Bloc/Provider/signals/setState, scoping providers, separating ephemeral vs app stat |
+| `flutter-testing` | Triggers when writing or fixing tests — unit, widget (pumpWidget/finders/pumpAndSettle), golden, and integration_test, plus mocktail/fakes, test setup |
+| `flutter-theming-and-material3` | Triggers when defining or refactoring app visual identity — ColorScheme/seed colors, ThemeData and component themes, Material 3 vs Cupertino, dark mod |
+| `flutter-widget-composition-and-keys` | Triggers when building widget trees — composing over inheriting, extracting widgets vs helper methods, lifting state, and choosing/placing Keys (Value |
+
 ## `flutter-supabase` — optional stack plugin (3)
 
 | Skill | Use when |
@@ -232,8 +261,6 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 | `flutter-data-model` | Write Flutter data models and parsing the project way — every model is a @JsonSerializable class with a part '*.g.dart' file and _$FromJson/_$ToJson, |
 | `flutter-mvvm` | Build or edit Flutter UI and pages in apps/mobile using the Flutter MVVM architecture — the BaseViewModel + MixinBasePage page+view-model pattern (Cha |
 | `supabase-security-review` | Audit Supabase/backend changes (RLS, views, triggers, edge functions, SQL) for the recurring security issues the AI review gate penalises, before comm |
-
-These read per-repo values from a `.conventions.json` at the repo root, so they adapt to your project instead of hardcoding paths.
 
 ---
 
