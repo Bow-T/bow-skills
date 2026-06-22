@@ -4,7 +4,7 @@
 
 Skills are *workflows the agent activates by context* — not docs you read. Each one declares a trigger; when your task matches, Claude applies that process automatically. Install once and your whole team shares the same working agreement with Claude.
 
-**94 project-agnostic skills** in `bow-core`, plus an optional `flutter-supabase` stack plugin — all original, English, MIT-licensed, and rendered to every major AI assistant.
+**110 project-agnostic skills** in `bow-core`, plus an optional `flutter-supabase` stack plugin — all original, English, MIT-licensed, and rendered to every major AI assistant.
 
 ---
 
@@ -21,7 +21,7 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 
 ---
 
-## `bow-core` — 94 skills
+## `bow-core` — 110 skills
 
 ### Discover & plan (5)
 
@@ -33,7 +33,7 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 | `planning-and-task-breakdown` | Turn an approved spec or clear requirements into a small, ordered list of verifiable tasks before writing code. |
 | `estimation-and-scoping` | Trigger when asked how long something will take, sizing a task or epic, or breaking unknowns into estimable pieces with explicit uncertainty. |
 
-### Architecture & system design (7)
+### Architecture & system design (9)
 
 | Skill | Use when |
 | :-- | :-- |
@@ -44,8 +44,10 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 | `event-driven-and-messaging` | Triggers when introducing a broker, choosing pub/sub vs queues, handling at-least-once delivery, ordering/partitioning, dead-letters, or moving sync c |
 | `scalability-and-capacity-planning` | Triggers when estimating capacity, choosing horizontal vs vertical scaling, hunting bottlenecks under projected load, planning sharding/partitioning, |
 | `error-handling-and-exception-design` | Triggers when deciding how code reports and propagates failure — error types vs exceptions vs result types, what to wrap/retry/swallow, user-facing me |
+| `event-sourcing-and-cqrs` | Triggers when persisting state as an immutable event log with separate read/write models — designing event stores, aggregates, snapshots, projections, |
+| `distributed-transactions-and-sagas` | Triggers when a business operation spans multiple services or databases needing consistency without 2PC — saga orchestration/choreography, compensatin |
 
-### Build & implement (8)
+### Build & implement (9)
 
 | Skill | Use when |
 | :-- | :-- |
@@ -57,6 +59,7 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 | `state-management-and-data-flow` | Triggers when structuring client-side or app state — choosing local vs global state, normalizing stores, optimistic updates, cache sync, and avoiding |
 | `datetime-timezone-and-money-correctness` | Trigger when handling dates, times, timezones, durations, currency, rounding, or any value where locale and precision cause silent off-by-one or off-b |
 | `code-migration-and-language-upgrades` | Triggers when upgrading a runtime/framework/language version or porting between them — assessing breaking changes, codemods, incremental cutover, and |
+| `offline-sync-and-conflict-resolution` | Triggers when clients work offline and must reconcile divergent state — sync protocols, CRDTs/operational-transform, last-writer-wins vs merge policie |
 
 ### Frontend & UX (4)
 
@@ -67,7 +70,7 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 | `accessibility-engineering` | Triggers when building or remediating UI that must meet WCAG — keyboard navigation, ARIA semantics, focus management, color contrast, or screen-reader |
 | `internationalization-and-localization` | Triggers when externalizing UI strings, handling plurals/gender/RTL, formatting dates/numbers/currency per locale, fixing Unicode handling, or buildin |
 
-### Data & databases (6)
+### Data & databases (8)
 
 | Skill | Use when |
 | :-- | :-- |
@@ -77,8 +80,10 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 | `data-pipeline-and-etl-design` | Trigger when moving or transforming data in batch or stream — building an ingestion/ETL/ELT pipeline, ensuring idempotent loads, schema evolution, or |
 | `full-text-and-vector-search-infrastructure` | Triggers when standing up search infra itself — indexing pipelines, analyzers/tokenizers, sharding, freshness-vs-cost trade-offs, and operating Elasti |
 | `search-and-relevance-engineering` | Trigger when building or tuning search — indexing, analyzers, ranking/relevance, filters/facets, typo tolerance, or evaluating search quality. |
+| `data-warehouse-and-dimensional-modeling` | Triggers when modeling for analytics/OLAP — star/snowflake schemas, fact and dimension tables, slowly-changing dimensions, grain definition, and colum |
+| `data-governance-and-lineage` | Triggers when managing a data platform's trust layer — cataloging datasets, tracking column-level lineage, ownership and stewardship, data contracts, |
 
-### APIs, messaging & integration (11)
+### APIs, messaging & integration (14)
 
 | Skill | Use when |
 | :-- | :-- |
@@ -93,6 +98,9 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 | `file-upload-and-media-handling` | Triggers when accepting user file/image/video uploads — validation, size/type limits, virus scanning, presigned URLs, storage layout, transcoding, and |
 | `payments-and-billing-integration` | Triggers when integrating payments or subscriptions — idempotent charges, PSP webhooks, proration, dunning, tax, refunds, reconciliation, and PCI scop |
 | `email-and-notification-delivery` | Triggers when sending transactional email/SMS/push — deliverability (SPF/DKIM/DMARC), templating, user preferences, rate/throttle, bounce handling, an |
+| `graphql-schema-and-resolver-design` | Triggers when designing a GraphQL schema or resolvers — modeling types/connections, batching with DataLoader to kill N+1, query depth/complexity limit |
+| `webrtc-and-realtime-media` | Triggers when building peer-to-peer audio/video/data — WebRTC signaling, ICE/STUN/TURN/NAT traversal, SFU/MCU topologies, codec/bitrate adaptation, an |
+| `sdk-and-client-library-design` | Triggers when building or publishing an SDK others depend on — language-idiomatic ergonomics, auth/retry/pagination helpers, semantic versioning and b |
 
 ### Testing & quality (9)
 
@@ -116,7 +124,7 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 | `memory-and-resource-leak-diagnosis` | Triggers when a process grows unbounded or exhausts resources — heap/leak profiling, GC tuning, file-descriptor and connection-pool exhaustion, and OO |
 | `performance-optimization` | Finds and fixes real performance problems through measurement. |
 
-### Security & privacy (7)
+### Security & privacy (12)
 
 | Skill | Use when |
 | :-- | :-- |
@@ -127,6 +135,11 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 | `dependency-and-supply-chain` | Use when adding or upgrading a library, auditing for CVEs or license conflicts, pinning and locking versions, deciding whether to adopt a dependency, |
 | `data-privacy-and-compliance` | Trigger when handling PII/PHI, implementing GDPR/CCPA rights (deletion, export, consent), data retention, or building any system subject to regulatory |
 | `networking-and-tls-fundamentals` | Triggers when debugging or designing connectivity — DNS, TLS/mTLS, certificates and rotation, proxies/load balancers, timeouts, keep-alive, and diagno |
+| `encryption-and-key-management` | Triggers when encrypting data at rest or in transit beyond TLS basics — choosing AES-GCM/envelope encryption, integrating a KMS/HSM, key rotation and |
+| `audit-logging-and-tamper-evidence` | Triggers when building an audit trail that must survive scrutiny — append-only immutable records, hash chaining or Merkle proofs, who-did-what-when ca |
+| `fraud-and-abuse-prevention` | Triggers when defending against malicious-but-authenticated misuse — account takeover, bot/scraping defense, payment fraud, fake signups, velocity rul |
+| `privacy-engineering-and-anonymization` | Triggers when data must be de-identified for analytics, sharing, or ML — k-anonymity, differential privacy, pseudonymization, tokenization, re-identif |
+| `content-moderation-and-trust-safety` | Triggers when handling user-generated content at scale — classifier and human-review pipelines, CSAM/illegal-content handling and reporting, appeals, |
 
 ### Reliability & operations (7)
 
@@ -154,7 +167,7 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 | `deprecation-and-migration` | Retires old code and moves users onto its replacement safely. |
 | `mobile-release-and-app-store` | Trigger when shipping a mobile app — store submission, phased rollout, forced/optional update gates, crash monitoring, and recovering from an un-recal |
 
-### Infra, cloud & cost (4)
+### Infra, cloud & cost (5)
 
 | Skill | Use when |
 | :-- | :-- |
@@ -162,8 +175,9 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 | `containerization-and-orchestration` | Triggers when packaging services into containers and running them — lean Dockerfiles, multi-stage builds, image hardening, Kubernetes/compose manifest |
 | `capacity-cost-tradeoff-and-rightsizing` | Triggers when tuning resource allocation against spend — rightsizing compute/storage, autoscaling policies, spot/reserved choices, and load-vs-cost tr |
 | `cost-and-finops-optimization` | Trigger when cloud, infra, or LLM spend spikes or needs forecasting — attribute cost, right-size, kill waste, and add guardrails. |
+| `multi-region-and-data-residency` | Triggers when deploying across regions for latency, failover, or legal residency — active-active vs active-passive, cross-region replication and confl |
 
-### AI & LLM engineering (6)
+### AI & LLM engineering (8)
 
 | Skill | Use when |
 | :-- | :-- |
@@ -173,6 +187,8 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 | `agent-tool-design` | Triggers when defining tools/functions an LLM agent can call — naming, parameter schemas, descriptions, return shapes, error surfaces, and guardrails |
 | `machine-learning-model-serving` | Triggers when deploying a trained model to production — packaging, batching, GPU/CPU sizing, versioning, shadow/canary, latency budgets, and monitorin |
 | `ml-data-and-feature-pipelines` | Triggers when preparing data for training or inference — feature engineering, train/serve skew, leakage prevention, labeling, dataset versioning, and |
+| `recommendation-and-ranking-systems` | Triggers when building personalized recommendation or ranking — candidate generation, feature signals, collaborative/content filtering, learning-to-ra |
+| `ml-monitoring-and-drift-detection` | Triggers when keeping a deployed model healthy over time — detecting data/concept/prediction drift, monitoring feature distributions and label delay, |
 
 ### Product & analytics (2)
 
