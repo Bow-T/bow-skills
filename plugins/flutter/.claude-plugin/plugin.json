@@ -1,0 +1,10 @@
+{
+  "name": "flutter",
+  "version": "1.0.0",
+  "description": "Generic Flutter/Dart best-practice skills — state management, navigation, performance, rendering, animations, testing, build flavors, CI/CD, platform channels, accessibility, i18n, and more. Framework-specific, project-agnostic; pairs with bow-core.",
+  "author": { "name": "BOW Skills" },
+  "homepage": "https://github.com/Bow-T/bow-skills",
+  "repository": "https://github.com/Bow-T/bow-skills",
+  "license": "MIT",
+  "skills": "./skills"
+}
