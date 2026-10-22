@@ -136,6 +136,7 @@ When a task matches one of these, follow that workflow. In Claude Code the full 
 | `source-driven-development` | bow-core | Backs every framework-specific decision with current official documentation and a citation. |
 | `spec-driven-development` | bow-core | Write an agreed specification, linked to a tracker ticket, before any implementation. |
 | `state-management-and-data-flow` | bow-core | Triggers when structuring client-side or app state — choosing local vs global state, normalizing stores, optimistic updates, cache sync, and avoiding prop-drilling or stale-state bugs. |
+| `store-review-readiness` | bow-core | Audit a mobile app for App Store and Google Play rejection risks and security gaps before it is submitted. |
 | `streaming-and-realtime-systems` | bow-core | Triggers when delivering live updates — WebSockets/SSE/long-poll choice, presence, backpressure, reconnection, fan-out scaling, and ordering/dedup for realtime channels. |
 | `system-architecture-design` | bow-core | Triggers when shaping a new service or major subsystem before building components — choosing monolith vs microservices vs serverless, defining component boundaries and data flow, or weighing architectural trade-offs against requirements. |
 | `technical-debt-management` | bow-core | Triggers when the team is slowing down, when proposing cleanup, when weighing a shortcut against its future cost, or when ranking refactors against features. |

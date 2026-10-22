@@ -7,7 +7,7 @@ description: Picks the right skill for the task at hand. Use at the start of a s
 
 ## What this is
 
-This marketplace bundles **110 project-agnostic skills** (plus optional stack plugins: `flutter`, `flutter-supabase`), each a workflow for one engineering concern. Your first move on any non-trivial task: find the skill that fits, then follow its steps. The catalog below is grouped by area to route you fast.
+This marketplace bundles **111 project-agnostic skills** (plus optional stack plugins: `flutter`, `flutter-supabase`), each a workflow for one engineering concern. Your first move on any non-trivial task: find the skill that fits, then follow its steps. The catalog below is grouped by area to route you fast.
 
 ## Route by category
 
@@ -123,6 +123,7 @@ Find the line closest to what you're doing, open that skill, and follow its step
 - `release-notes-and-semver` — Use when cutting a release — picking a semver bump, writing a changelog or release notes, or deciding whether a change is breaking.
 - `deprecation-and-migration` — Retires old code and moves users onto its replacement safely.
 - `mobile-release-and-app-store` — Trigger when shipping a mobile app — store submission, phased rollout, forced/optional update gates, crash monitoring, and recovering from an un-recal
+- `store-review-readiness` — Audit a mobile app for App Store and Google Play rejection risks and security gaps before it is submitted, or answer a store rejection item by item
 
 ### Infra, cloud & cost
 - `infrastructure-as-code` — Triggers when provisioning cloud resources declaratively — writing/structuring Terraform/Pulumi/CDK, managing state, modules, drift detection, and saf

@@ -17,6 +17,7 @@ A mobile binary is **immutable once downloaded**. You cannot patch a device you 
 
 ## Step 1 — Pre-flight gate (block release until all true)
 
+- [ ] Store-policy and security audit done, blockers fixed — see [[store-review-readiness]].
 - [ ] `version` and `build number` bumped; build number strictly increases (stores reject equal/lower).
 - [ ] Release notes written for each store locale.
 - [ ] Crash-free baseline known from the previous version (e.g. 99.7%).

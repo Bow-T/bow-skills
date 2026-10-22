@@ -4,7 +4,7 @@
 
 Skills are *workflows the agent activates by context* — not docs you read. Each one declares a trigger; when your task matches, Claude applies that process automatically. Install once and your whole team shares the same working agreement with Claude.
 
-**110 project-agnostic skills** in `bow-core`, plus stack plugins (`flutter`, `flutter-supabase`) — all original, English, MIT-licensed, and rendered to every major AI assistant.
+**111 project-agnostic skills** in `bow-core`, plus stack plugins (`flutter`, `flutter-supabase`) — all original, English, MIT-licensed, and rendered to every major AI assistant.
 
 ---
 
@@ -22,7 +22,7 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 
 ---
 
-## `bow-core` — 110 skills
+## `bow-core` — 111 skills
 
 ### Discover & plan (5)
 
@@ -154,7 +154,7 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 | `runbooks-and-oncall-readiness` | Triggers when authoring runbooks for known failure modes, defining alert response procedures, preparing on-call handoffs, documenting escalation paths |
 | `backup-and-disaster-recovery` | Triggers when defining backup policy, setting RPO/RTO targets, testing restores, planning failover or replication, or preparing for region loss and da |
 
-### Ship & release (9)
+### Ship & release (10)
 
 | Skill | Use when |
 | :-- | :-- |
@@ -167,6 +167,7 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 | `release-notes-and-semver` | Use when cutting a release — picking a semver bump, writing a changelog or release notes, or deciding whether a change is breaking. |
 | `deprecation-and-migration` | Retires old code and moves users onto its replacement safely. |
 | `mobile-release-and-app-store` | Trigger when shipping a mobile app — store submission, phased rollout, forced/optional update gates, crash monitoring, and recovering from an un-recal |
+| `store-review-readiness` | Audit a mobile app for App Store and Google Play rejection risks and security gaps before it is submitted. |
 
 ### Infra, cloud & cost (5)
 
@@ -219,6 +220,7 @@ Skills activate by context. Prefer a stack/workflow skill over generic advice wh
 | `/debug` | debugging-and-error-recovery |
 | `/tidy` | code-simplification |
 | `/harden` | security-and-hardening |
+| `/store-check` | store-review-readiness |
 
 ### Subagents
 
